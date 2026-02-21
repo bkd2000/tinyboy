@@ -5,10 +5,14 @@ import { BodyFatEstimator } from './components/BodyFatEstimator';
 import { BMRResultsTable } from './components/BMRResultsTable';
 import { TDEESection } from './components/TDEESection';
 import { BMISection } from './components/BMISection';
+import { WHRSection } from './components/WHRSection';
+import { WHtRSection } from './components/WHtRSection';
 import { MacroCalculator } from './components/MacroCalculator';
 import { PDFExport } from './components/PDFExport';
 import { calculateAllBMR } from './utils/bmrModels';
 import { getBMIData } from './utils/bmi';
+import { getWHRData } from './utils/whr';
+import { getWHtRData } from './utils/whtr';
 import { calculateTDEE } from './utils/tdee';
 import { ACTIVITY_LEVELS } from './constants/formulas';
 
@@ -39,6 +43,18 @@ function App() {
     if (!formData.weight || !formData.height) return null;
     return getBMIData(formData.weight, formData.height);
   }, [formData.weight, formData.height]);
+
+  // Calculate WHR when waist/hip/gender changes
+  const whrData = useMemo(() => {
+    if (!formData.waistCircumference || !formData.hipCircumference || !formData.gender) return null;
+    return getWHRData(formData.waistCircumference, formData.hipCircumference, formData.gender);
+  }, [formData.waistCircumference, formData.hipCircumference, formData.gender]);
+
+  // Calculate WHtR when waist/height changes
+  const whtrData = useMemo(() => {
+    if (!formData.waistCircumference || !formData.height) return null;
+    return getWHtRData(formData.waistCircumference, formData.height);
+  }, [formData.waistCircumference, formData.height]);
 
   // Calculate TDEE
   const tdee = useMemo(() => {
@@ -127,6 +143,14 @@ function App() {
 
             {bmiData && formData.height && (
               <BMISection bmi={bmiData} height={formData.height} />
+            )}
+
+            {whrData && formData.gender && (
+              <WHRSection whr={whrData} gender={formData.gender} />
+            )}
+
+            {whtrData && formData.height && (
+              <WHtRSection whtr={whtrData} height={formData.height} />
             )}
 
             {canExportPDF && formData.weight && formData.height && formData.age && formData.gender && (

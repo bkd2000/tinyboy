@@ -9,7 +9,7 @@ export interface FormData {
   gender?: Gender;
   neckCircumference?: number; // cm
   waistCircumference?: number; // cm
-  hipCircumference?: number; // cm (only for females)
+  hipCircumference?: number; // cm (for Navy method and WHR calculation)
 }
 
 export interface BMRParams {
@@ -128,4 +128,23 @@ export interface PDFData {
   bmi: BMIData;
   macros?: MacroResults;
   generatedAt: Date;
+}
+
+// WHR (Waist-to-Hip Ratio) types
+export type WHRCategory = 'low-risk' | 'moderate-risk' | 'high-risk';
+
+export type WHRRisk = 'low' | 'moderate' | 'high';
+
+export interface WHRData {
+  value: number;
+  category: WHRCategory;
+  risk: WHRRisk;
+}
+
+// WHtR (Waist-to-Height Ratio) types
+export type WHtRCategory = 'very-lean' | 'healthy' | 'increased-risk' | 'high-risk';
+
+export interface WHtRData {
+  value: number;
+  category: WHtRCategory;
 }

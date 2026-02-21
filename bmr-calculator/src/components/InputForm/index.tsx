@@ -268,29 +268,27 @@ export function InputForm({ data, onChange }: InputFormProps) {
             </div>
           </div>
 
-          {/* Hip - only for females */}
-          {data.gender === 'female' && (
-            <div>
-              <label htmlFor="hip" className="block text-sm font-medium text-gray-700 mb-1">
-                Obwód bioder
-              </label>
-              <div className="relative">
-                <input
-                  type="number"
-                  id="hip"
-                  min="0"
-                  step="0.1"
-                  value={data.hipCircumference || ''}
-                  onChange={(e) => handleChange('hipCircumference', e.target.value ? Number(e.target.value) : undefined)}
-                  className="block w-full pr-12 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-primary"
-                  placeholder="95"
-                />
-                <div className="absolute inset-y-0 right-0 pr-3 flex items-center pointer-events-none">
-                  <span className="text-gray-500 text-sm">cm</span>
-                </div>
+          {/* Hip - for WHR calculation (both genders) */}
+          <div>
+            <label htmlFor="hip" className="block text-sm font-medium text-gray-700 mb-1">
+              Obwód bioder
+            </label>
+            <div className="relative">
+              <input
+                type="number"
+                id="hip"
+                min="0"
+                step="0.1"
+                value={data.hipCircumference || ''}
+                onChange={(e) => handleChange('hipCircumference', e.target.value ? Number(e.target.value) : undefined)}
+                className="block w-full pr-12 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-primary"
+                placeholder="95"
+              />
+              <div className="absolute inset-y-0 right-0 pr-3 flex items-center pointer-events-none">
+                <span className="text-gray-500 text-sm">cm</span>
               </div>
             </div>
-          )}
+          </div>
         </div>
       </div>
 
