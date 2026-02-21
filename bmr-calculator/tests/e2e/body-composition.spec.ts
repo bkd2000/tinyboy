@@ -34,16 +34,17 @@ test.describe('Body Composition - LBM & FFM', () => {
     // Sprawdź czy pokazuje tylko LBM (bez FFM)
     await expect(page.getByText('Średnia LBM (Lean Body Mass)')).toBeVisible();
 
-    // Sprawdź info box o potrzebie uzupełnienia % BF
-    await expect(page.locator('text=/FFM wymaga % tkanki tłuszczowej/')).toBeVisible();
-    await expect(page.locator('text=/Uzupełnij dane w sekcji "Estymacja tkanki tłuszczowej"/')).toBeVisible();
+    // Sprawdź info box o potrzebie uzupełnienia % BF (w kontekście sekcji Body Composition)
+    const bodyCompositionSection = page.locator('div.bg-white').filter({ hasText: 'Skład ciała - LBM i FFM' });
+    await expect(bodyCompositionSection.locator('text=/FFM wymaga % tkanki tłuszczowej/')).toBeVisible();
+    await expect(bodyCompositionSection.locator('text=/Uzupełnij dane.*FFM.*Fat-Free Mass/')).toBeVisible();
 
-    // Sprawdź czy tabela pokazuje 3 formuły LBM
-    const table = page.locator('table').first();
-    await expect(table).toBeVisible();
-    await expect(table.locator('text=/Boer/')).toBeVisible();
-    await expect(table.locator('text=/James/')).toBeVisible();
-    await expect(table.locator('text=/Hume/')).toBeVisible();
+    // Sprawdź czy tabela pokazuje 3 formuły LBM (w sekcji Body Composition)
+    const bodyCompositionTable = page.locator('div.bg-white').filter({ hasText: 'Skład ciała - LBM i FFM' }).locator('table');
+    await expect(bodyCompositionTable).toBeVisible();
+    await expect(bodyCompositionTable.locator('text=/Boer/')).toBeVisible();
+    await expect(bodyCompositionTable.locator('text=/James/')).toBeVisible();
+    await expect(bodyCompositionTable.locator('text=/Hume/')).toBeVisible();
 
     // Screenshot
     await page.screenshot({ path: 'test-results/body-composition-01-lbm-bez-bf.png', fullPage: true });
@@ -56,9 +57,12 @@ test.describe('Body Composition - LBM & FFM', () => {
     await page.fill('input#age', '30');
     await page.click('button:has-text("Mężczyzna")');
 
-    // Wprowadź obwody ciała aby włączyć estymację % BF (US Navy)
+    // Wprowadź obwody ciała
     await page.fill('input#neck', '38');
     await page.fill('input#waist', '85');
+
+    // Wybierz metodę US Navy dla estymacji % BF
+    await page.click('button:has-text("Metoda US Navy")');
 
     await page.waitForTimeout(1000);
 
@@ -87,8 +91,9 @@ test.describe('Body Composition - LBM & FFM', () => {
 
     await page.waitForTimeout(1000);
 
-    // Sprawdź czy tabela istnieje
-    const table = page.locator('table').first();
+    // Sprawdź czy tabela istnieje (w sekcji Body Composition)
+    const bodyCompositionSection = page.locator('div.bg-white').filter({ hasText: 'Skład ciała - LBM i FFM' });
+    const table = bodyCompositionSection.locator('table');
     await expect(table).toBeVisible();
 
     // Sprawdź nagłówki tabeli
@@ -127,6 +132,9 @@ test.describe('Body Composition - LBM & FFM', () => {
     await page.fill('input#neck', '38');
     await page.fill('input#waist', '85');
 
+    // Wybierz metodę US Navy
+    await page.click('button:has-text("Metoda US Navy")');
+
     await page.waitForTimeout(1000);
 
     // Sprawdź czy indigo box ze składem FFM istnieje
@@ -153,10 +161,14 @@ test.describe('Body Composition - LBM & FFM', () => {
     await page.fill('input#neck', '38');
     await page.fill('input#waist', '85');
 
+    // Wybierz metodę US Navy
+    await page.click('button:has-text("Metoda US Navy")');
+
     await page.waitForTimeout(1000);
 
-    // Sprawdź czy purple box się wyświetla
-    const purpleBox = page.locator('div.bg-purple-50').filter({ hasText: 'Różnica FFM vs LBM' });
+    // Sprawdź czy purple box się wyświetla (w sekcji Body Composition)
+    const bodyCompositionSection = page.locator('div.bg-white').filter({ hasText: 'Skład ciała - LBM i FFM' });
+    const purpleBox = bodyCompositionSection.locator('div.bg-purple-50').filter({ hasText: 'Różnica FFM vs LBM' });
     await expect(purpleBox).toBeVisible();
 
     // Sprawdź tekst o precyzji FFM
@@ -164,7 +176,7 @@ test.describe('Body Composition - LBM & FFM', () => {
 
     // Sprawdź czy różnica jest wyświetlona (w kg i %)
     await expect(purpleBox.locator('text=/kg/')).toBeVisible();
-    await expect(purpleBox.locator('text=/%/')).toBeVisible();
+    await expect(purpleBox.locator('text=/różnicy/')).toBeVisible();
 
     // Screenshot
     await page.screenshot({ path: 'test-results/body-composition-05-purple-box.png', fullPage: true });
@@ -207,6 +219,9 @@ test.describe('Body Composition - LBM & FFM', () => {
     await page.fill('input#waist', '70');
     await page.fill('input#hip', '95');
 
+    // Wybierz metodę US Navy
+    await page.click('button:has-text("Metoda US Navy")');
+
     await page.waitForTimeout(1000);
 
     // Sprawdź FFM
@@ -229,24 +244,24 @@ test.describe('Body Composition - LBM & FFM', () => {
 
     await page.waitForTimeout(1000);
 
-    // Sprawdź przycisk sortowania
-    const sortButton = page.locator('button').filter({ hasText: 'Sortuj' });
-    await expect(sortButton).toBeVisible();
+    // Sprawdź przycisk sortowania (w kontekście Body Composition)
+    const bodyCompositionSection = page.locator('div.bg-white').filter({ hasText: 'Skład ciała - LBM i FFM' });
+    await expect(bodyCompositionSection.locator('button:has-text("Sortuj")')).toBeVisible();
 
     // Kliknij raz - sortowanie rosnąco
-    await sortButton.click();
+    await bodyCompositionSection.locator('button:has-text("Sortuj")').click();
     await page.waitForTimeout(500);
-    await expect(page.locator('button').filter({ hasText: 'Rosnąco' })).toBeVisible();
+    await expect(bodyCompositionSection.locator('button:has-text("Rosnąco")')).toBeVisible();
 
     // Kliknij drugi raz - sortowanie malejąco
-    await sortButton.click();
+    await bodyCompositionSection.locator('button:has-text("Rosnąco")').click();
     await page.waitForTimeout(500);
-    await expect(page.locator('button').filter({ hasText: 'Malejąco' })).toBeVisible();
+    await expect(bodyCompositionSection.locator('button:has-text("Malejąco")')).toBeVisible();
 
     // Kliknij trzeci raz - powrót do domyślnego
-    await sortButton.click();
+    await bodyCompositionSection.locator('button:has-text("Malejąco")').click();
     await page.waitForTimeout(500);
-    await expect(page.locator('button').filter({ hasText: 'Sortuj' })).toBeVisible();
+    await expect(bodyCompositionSection.locator('button:has-text("Sortuj")')).toBeVisible();
 
     // Screenshot
     await page.screenshot({ path: 'test-results/body-composition-08-sortowanie.png', fullPage: true });
@@ -261,15 +276,15 @@ test.describe('Body Composition - LBM & FFM', () => {
 
     await page.waitForTimeout(1000);
 
-    // Sprawdź sekcję z zakresem
-    await expect(page.locator('text=/Najniższy:/')).toBeVisible();
-    await expect(page.locator('text=/Najwyższy:/')).toBeVisible();
-    await expect(page.locator('text=/Rozstęp:/')).toBeVisible();
+    // Sprawdź sekcję z zakresem (w kontekście Body Composition)
+    const bodyCompositionSection = page.locator('div.bg-white').filter({ hasText: 'Skład ciała - LBM i FFM' });
+    await expect(bodyCompositionSection.locator('text=/Najniższy:.*kg/')).toBeVisible();
+    await expect(bodyCompositionSection.locator('text=/Najwyższy:.*kg/')).toBeVisible();
+    await expect(bodyCompositionSection.locator('text=/Rozstęp:.*kg/')).toBeVisible();
 
     // Sprawdź kolorowe wskaźniki min/max
-    const table = page.locator('table').first();
-    await expect(table.locator('div.w-3.h-3.bg-blue-100')).toBeVisible(); // min
-    await expect(table.locator('div.w-3.h-3.bg-orange-100')).toBeVisible(); // max
+    await expect(bodyCompositionSection.locator('div.w-3.h-3.bg-blue-100')).toBeVisible(); // min
+    await expect(bodyCompositionSection.locator('div.w-3.h-3.bg-orange-100')).toBeVisible(); // max
 
     // Screenshot
     await page.screenshot({ path: 'test-results/body-composition-09-zakres-lbm.png', fullPage: true });
@@ -284,8 +299,9 @@ test.describe('Body Composition - LBM & FFM', () => {
 
     await page.waitForTimeout(1000);
 
-    // Sprawdź box z wyjaśnieniem formuł
-    const formulasBox = page.locator('div.bg-gray-50').filter({ hasText: 'Formuły LBM:' });
+    // Sprawdź box z wyjaśnieniem formuł (w sekcji Body Composition)
+    const bodyCompositionSection = page.locator('div.bg-white').filter({ hasText: 'Skład ciała - LBM i FFM' });
+    const formulasBox = bodyCompositionSection.locator('div.bg-gray-50').filter({ hasText: 'Formuły LBM:' });
     await expect(formulasBox).toBeVisible();
 
     // Sprawdź wszystkie 3 formuły
@@ -309,8 +325,9 @@ test.describe('Body Composition - LBM & FFM', () => {
 
     await page.waitForTimeout(1000);
 
-    // Sprawdź box z wyjaśnieniem formuł
-    const formulasBox = page.locator('div.bg-gray-50').filter({ hasText: 'Formuły LBM:' });
+    // Sprawdź box z wyjaśnieniem formuł (w sekcji Body Composition)
+    const bodyCompositionSection = page.locator('div.bg-white').filter({ hasText: 'Skład ciała - LBM i FFM' });
+    const formulasBox = bodyCompositionSection.locator('div.bg-gray-50').filter({ hasText: 'Formuły LBM:' });
     await expect(formulasBox).toBeVisible();
 
     // Sprawdź czy wzory są inne dla kobiet
@@ -329,8 +346,9 @@ test.describe('Body Composition - LBM & FFM', () => {
 
     await page.waitForTimeout(1000);
 
-    // Sprawdź disclaimer
-    const disclaimer = page.locator('div.bg-blue-50').filter({ hasText: 'Uwaga:' });
+    // Sprawdź disclaimer (w sekcji Body Composition)
+    const bodyCompositionSection = page.locator('div.bg-white').filter({ hasText: 'Skład ciała - LBM i FFM' });
+    const disclaimer = bodyCompositionSection.locator('div.bg-blue-50').filter({ hasText: 'Uwaga:' });
     await expect(disclaimer).toBeVisible();
 
     // Sprawdź treść o różnicy LBM i FFM
@@ -376,6 +394,9 @@ test.describe('Body Composition - LBM & FFM', () => {
     await page.fill('input#neck', '40');
     await page.fill('input#waist', '70');
 
+    // Wybierz metodę US Navy
+    await page.click('button:has-text("Metoda US Navy")');
+
     await page.waitForTimeout(1000);
 
     // FFM powinno być bardzo wysokie (95% masy ciała)
@@ -397,6 +418,9 @@ test.describe('Body Composition - LBM & FFM', () => {
     await page.fill('input#neck', '38');
     await page.fill('input#waist', '115');
 
+    // Wybierz metodę US Navy
+    await page.click('button:has-text("Metoda US Navy")');
+
     await page.waitForTimeout(1000);
 
     // FFM powinno być niskie (60% masy ciała)
@@ -417,6 +441,9 @@ test.describe('Body Composition - LBM & FFM', () => {
     // Dodaj obwody dla ~15% BF
     await page.fill('input#neck', '38');
     await page.fill('input#waist', '85');
+
+    // Wybierz metodę US Navy
+    await page.click('button:has-text("Metoda US Navy")');
 
     await page.waitForTimeout(1000);
 
@@ -451,6 +478,9 @@ test.describe('Body Composition - LBM & FFM', () => {
     await page.fill('input#neck', '38');
     await page.fill('input#waist', '85');
 
+    // 3.5. Wybierz metodę US Navy
+    await page.click('button:has-text("Metoda US Navy")');
+
     // 4. Sprawdź że FFM się pojawia
     await page.waitForTimeout(1000);
     await expect(page.locator('div.bg-primary-50').filter({ hasText: 'FFM (Fat-Free Mass)' })).toBeVisible();
@@ -474,6 +504,9 @@ test.describe('Body Composition - LBM & FFM', () => {
     await page.fill('input#neck', '38');
     await page.fill('input#waist', '85');
     await page.fill('input#hip', '95');
+
+    // Wybierz metodę US Navy
+    await page.click('button:has-text("Metoda US Navy")');
 
     await page.waitForTimeout(1000);
 
