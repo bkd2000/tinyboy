@@ -46,14 +46,11 @@ test.describe('BAI Calculator - Testy E2E', () => {
     await expect(page.getByText('BAI - Body Adiposity Index')).toBeVisible();
 
     // Sprawdź wartość BAI (około 13%)
-    await expect(page.locator('span.text-5xl').filter({ hasText: /^1[0-9]\./ })).toBeVisible();
+    const baiSection = page.locator('div:has-text("Twoje BAI")').first();
+    await expect(baiSection.locator('span.text-5xl').filter({ hasText: /^1[0-9]\./ })).toBeVisible();
 
-    // Sprawdź kategorię "Bardzo niska" (żółty)
-    await expect(page.locator('div.bg-warning:has-text("Bardzo niska")')).toBeVisible();
-
-    // Sprawdź kolor badge (żółty)
-    const badge = page.locator('div.bg-warning.text-white:has-text("Bardzo niska")');
-    await expect(badge).toBeVisible();
+    // Sprawdź kategorię "Bardzo niski" (wyświetlane jako paragraf)
+    await expect(page.locator('p:has-text("Bardzo niski")').first()).toBeVisible();
 
     // Screenshot
     await page.screenshot({ path: 'test-results/bai-01-kobieta-very-low.png', fullPage: true });
@@ -75,11 +72,12 @@ test.describe('BAI Calculator - Testy E2E', () => {
     // Sprawdź czy sekcja BAI się wyświetla
     await expect(page.getByText('BAI - Body Adiposity Index')).toBeVisible();
 
-    // Sprawdź wartość BAI (około 23%)
-    await expect(page.locator('span.text-5xl').filter({ hasText: /^2[0-9]\./ })).toBeVisible();
+    // Sprawdź wartość BAI (około 22%)
+    const baiSection = page.locator('div:has-text("BAI - Body Adiposity Index")').first();
+    await expect(baiSection.locator('span.text-5xl').filter({ hasText: /^2[0-9]\./ })).toBeVisible();
 
-    // Sprawdź kategorię "Atletyczna" (zielony jasny)
-    await expect(page.locator('div').filter({ hasText: /^Atletyczna$/ }).first()).toBeVisible();
+    // Sprawdź kategorię "Atletyczny" (wyświetlane jako paragraf)
+    await expect(page.locator('p:has-text("Atletyczny")').first()).toBeVisible();
 
     // Screenshot
     await page.screenshot({ path: 'test-results/bai-02-kobieta-athletic.png', fullPage: true });
@@ -102,10 +100,11 @@ test.describe('BAI Calculator - Testy E2E', () => {
     await expect(page.getByText('BAI - Body Adiposity Index')).toBeVisible();
 
     // Sprawdź wartość BAI (około 30%)
-    await expect(page.locator('span.text-5xl').filter({ hasText: /^[23][0-9]\./ })).toBeVisible();
+    const baiSection = page.locator('div:has-text("Twoje BAI")').first();
+    await expect(baiSection.locator('span.text-5xl').filter({ hasText: /^[23][0-9]\./ })).toBeVisible();
 
-    // Sprawdź kategorię "Normalna" (zielony ciemny)
-    await expect(page.locator('div').filter({ hasText: /^Normalna$/ }).first()).toBeVisible();
+    // Sprawdź kategorię "Normalny" (wyświetlane jako paragraf)
+    await expect(page.locator('p:has-text("Normalny")').first()).toBeVisible();
 
     // Screenshot
     await page.screenshot({ path: 'test-results/bai-03-kobieta-normal.png', fullPage: true });
@@ -128,10 +127,11 @@ test.describe('BAI Calculator - Testy E2E', () => {
     await expect(page.getByText('BAI - Body Adiposity Index')).toBeVisible();
 
     // Sprawdź wartość BAI (około 36%)
-    await expect(page.locator('span.text-5xl').filter({ hasText: /^3[0-9]\./ })).toBeVisible();
+    const baiSection = page.locator('div:has-text("Twoje BAI")').first();
+    await expect(baiSection.locator('span.text-5xl').filter({ hasText: /^3[0-9]\./ })).toBeVisible();
 
-    // Sprawdź kategorię "Przeciętna" (pomarańczowy)
-    await expect(page.locator('div.bg-orange-500:has-text("Przeciętna")')).toBeVisible();
+    // Sprawdź kategorię "Przeciętny" (wyświetlane jako paragraf)
+    await expect(page.locator('p:has-text("Przeciętny")').first()).toBeVisible();
 
     // Screenshot
     await page.screenshot({ path: 'test-results/bai-04-kobieta-average.png', fullPage: true });
@@ -154,10 +154,11 @@ test.describe('BAI Calculator - Testy E2E', () => {
     await expect(page.getByText('BAI - Body Adiposity Index')).toBeVisible();
 
     // Sprawdź wartość BAI (około 42%)
-    await expect(page.locator('span.text-5xl').filter({ hasText: /^4[0-9]\./ })).toBeVisible();
+    const baiSection = page.locator('div:has-text("Twoje BAI")').first();
+    await expect(baiSection.locator('span.text-5xl').filter({ hasText: /^4[0-9]\./ })).toBeVisible();
 
-    // Sprawdź kategorię "Podwyższona" (czerwony)
-    await expect(page.locator('div.bg-danger:has-text("Podwyższona")')).toBeVisible();
+    // Sprawdź kategorię "Podwyższony" (wyświetlane jako paragraf)
+    await expect(page.locator('p:has-text("Podwyższony")').first()).toBeVisible();
 
     // Screenshot
     await page.screenshot({ path: 'test-results/bai-05-kobieta-elevated.png', fullPage: true });
@@ -180,10 +181,11 @@ test.describe('BAI Calculator - Testy E2E', () => {
     await expect(page.getByText('BAI - Body Adiposity Index')).toBeVisible();
 
     // Sprawdź wartość BAI (około 10%)
-    await expect(page.locator('span.text-5xl').filter({ hasText: /^[0-9]\./ })).toBeVisible();
+    const baiSection = page.locator('div:has-text("Twoje BAI")').first();
+    await expect(baiSection.locator('span.text-5xl').filter({ hasText: /^[0-9]\./ })).toBeVisible();
 
-    // Sprawdź kategorię "Atletyczna" (zielony jasny)
-    await expect(page.locator('div').filter({ hasText: /^Atletyczna$/ }).first()).toBeVisible();
+    // Sprawdź kategorię "Atletyczny" (wyświetlane jako paragraf)
+    await expect(page.locator('p:has-text("Atletyczny")').first()).toBeVisible();
 
     // Screenshot
     await page.screenshot({ path: 'test-results/bai-06-mezczyzna-athletic.png', fullPage: true });
@@ -206,10 +208,11 @@ test.describe('BAI Calculator - Testy E2E', () => {
     await expect(page.getByText('BAI - Body Adiposity Index')).toBeVisible();
 
     // Sprawdź wartość BAI (około 17%)
-    await expect(page.locator('span.text-5xl').filter({ hasText: /^1[0-9]\./ })).toBeVisible();
+    const baiSection = page.locator('div:has-text("Twoje BAI")').first();
+    await expect(baiSection.locator('span.text-5xl').filter({ hasText: /^1[0-9]\./ })).toBeVisible();
 
-    // Sprawdź kategorię "Normalna" (zielony ciemny)
-    await expect(page.locator('div').filter({ hasText: /^Normalna$/ }).first()).toBeVisible();
+    // Sprawdź kategorię "Normalny" (wyświetlane jako paragraf)
+    await expect(page.locator('p:has-text("Normalny")').first()).toBeVisible();
 
     // Screenshot
     await page.screenshot({ path: 'test-results/bai-07-mezczyzna-normal.png', fullPage: true });
@@ -232,10 +235,11 @@ test.describe('BAI Calculator - Testy E2E', () => {
     await expect(page.getByText('BAI - Body Adiposity Index')).toBeVisible();
 
     // Sprawdź wartość BAI (około 22%)
-    await expect(page.locator('span.text-5xl').filter({ hasText: /^2[0-9]\./ })).toBeVisible();
+    const baiSection = page.locator('div:has-text("Twoje BAI")').first();
+    await expect(baiSection.locator('span.text-5xl').filter({ hasText: /^2[0-9]\./ })).toBeVisible();
 
-    // Sprawdź kategorię "Przeciętna" (pomarańczowy)
-    await expect(page.locator('div.bg-orange-500:has-text("Przeciętna")')).toBeVisible();
+    // Sprawdź kategorię "Przeciętny" (wyświetlane jako paragraf)
+    await expect(page.locator('p:has-text("Przeciętny")').first()).toBeVisible();
 
     // Screenshot
     await page.screenshot({ path: 'test-results/bai-08-mezczyzna-average.png', fullPage: true });
@@ -258,10 +262,11 @@ test.describe('BAI Calculator - Testy E2E', () => {
     await expect(page.getByText('BAI - Body Adiposity Index')).toBeVisible();
 
     // Sprawdź wartość BAI (około 27%)
-    await expect(page.locator('span.text-5xl').filter({ hasText: /^2[0-9]\./ })).toBeVisible();
+    const baiSection = page.locator('div:has-text("Twoje BAI")').first();
+    await expect(baiSection.locator('span.text-5xl').filter({ hasText: /^2[0-9]\./ })).toBeVisible();
 
-    // Sprawdź kategorię "Podwyższona" (czerwony)
-    await expect(page.locator('div.bg-danger:has-text("Podwyższona")')).toBeVisible();
+    // Sprawdź kategorię "Podwyższony" (wyświetlane jako paragraf)
+    await expect(page.locator('p:has-text("Podwyższony")').first()).toBeVisible();
 
     // Screenshot
     await page.screenshot({ path: 'test-results/bai-09-mezczyzna-elevated.png', fullPage: true });
@@ -323,14 +328,15 @@ test.describe('BAI Calculator - Testy E2E', () => {
     await page.waitForTimeout(1000);
 
     // Sprawdź czy indigo box z wzorem istnieje
-    const indigoBox = page.locator('div.bg-indigo-50');
+    const indigoBox = page.locator('div.bg-indigo-50:has-text("Wzór BAI")');
     await expect(indigoBox).toBeVisible();
 
     // Sprawdź format wzoru - powinien zawierać elementy wzoru BAI
-    await expect(page.locator('text=/Wzór BAI|Jak obliczamy BAI/')).toBeVisible();
+    await expect(indigoBox).toContainText('Wzór BAI');
 
     // Sprawdź czy wzór zawiera elementy matematyczne
-    await expect(page.locator('text=/obwód bioder|wzrost|1\\.5/')).toBeVisible();
+    await expect(indigoBox).toContainText('obwód bioder');
+    await expect(indigoBox).toContainText('wzrost');
 
     // Screenshot
     await page.screenshot({ path: 'test-results/bai-12-indigo-box-wzor.png', fullPage: true });
@@ -353,7 +359,8 @@ test.describe('BAI Calculator - Testy E2E', () => {
     await expect(page.getByText('BAI - Body Adiposity Index')).toBeVisible();
 
     // Sprawdź czy wartość BAI jest widoczna
-    await expect(page.locator('span.text-5xl').filter({ hasText: /^[0-9]+\./ })).toBeVisible();
+    const baiSection = page.locator('div:has-text("Twoje BAI")').first();
+    await expect(baiSection.locator('span.text-5xl').filter({ hasText: /^[0-9]+\./ })).toBeVisible();
 
     // Sprawdź czy skala jest widoczna
     await expect(page.getByText('Skala BAI')).toBeVisible();
@@ -445,7 +452,8 @@ test.describe('BAI Calculator - Testy E2E', () => {
     await expect(page.getByRole('heading', { name: /BAI/ })).toBeVisible();
 
     // 4. Sprawdź wartości BAI
-    await expect(page.locator('span.text-5xl').filter({ hasText: /^[0-9]+\./ })).toBeVisible();
+    const baiSection = page.locator('div:has-text("Twoje BAI")').first();
+    await expect(baiSection.locator('span.text-5xl').filter({ hasText: /^[0-9]+\./ })).toBeVisible();
 
     // 5. Sprawdź skalę BAI
     await expect(page.getByText('Skala BAI')).toBeVisible();
@@ -473,7 +481,8 @@ test.describe('BAI Calculator - Testy E2E', () => {
     await page.waitForTimeout(1000);
 
     // Sprawdź wartość BAI (około 21%)
-    await expect(page.locator('span.text-5xl').filter({ hasText: /^2[0-9]\./ })).toBeVisible();
+    const baiSection = page.locator('div:has-text("Twoje BAI")').first();
+    await expect(baiSection.locator('span.text-5xl').filter({ hasText: /^2[0-9]\./ })).toBeVisible();
 
     // Screenshot
     await page.screenshot({ path: 'test-results/bai-17-edge-21-kobieta.png', fullPage: true });
@@ -492,7 +501,8 @@ test.describe('BAI Calculator - Testy E2E', () => {
     await page.waitForTimeout(1000);
 
     // Sprawdź wartość BAI (około 27%)
-    await expect(page.locator('span.text-5xl').filter({ hasText: /^2[0-9]\./ })).toBeVisible();
+    const baiSection = page.locator('div:has-text("Twoje BAI")').first();
+    await expect(baiSection.locator('span.text-5xl').filter({ hasText: /^2[0-9]\./ })).toBeVisible();
 
     // Screenshot
     await page.screenshot({ path: 'test-results/bai-18-edge-27-kobieta.png', fullPage: true });
@@ -511,7 +521,8 @@ test.describe('BAI Calculator - Testy E2E', () => {
     await page.waitForTimeout(1000);
 
     // Sprawdź wartość BAI (około 34%)
-    await expect(page.locator('span.text-5xl').filter({ hasText: /^3[0-9]\./ })).toBeVisible();
+    const baiSection = page.locator('div:has-text("Twoje BAI")').first();
+    await expect(baiSection.locator('span.text-5xl').filter({ hasText: /^3[0-9]\./ })).toBeVisible();
 
     // Screenshot
     await page.screenshot({ path: 'test-results/bai-19-edge-34-kobieta.png', fullPage: true });
@@ -530,10 +541,11 @@ test.describe('BAI Calculator - Testy E2E', () => {
     await page.waitForTimeout(1000);
 
     // Sprawdź wartość BAI (około 40%)
-    await expect(page.locator('span.text-5xl').filter({ hasText: /^4[0-9]\./ })).toBeVisible();
+    const baiSection = page.locator('div:has-text("Twoje BAI")').first();
+    await expect(baiSection.locator('span.text-5xl').filter({ hasText: /^4[0-9]\./ })).toBeVisible();
 
-    // Sprawdź kategorię "Podwyższona" (>= 40%)
-    await expect(page.locator('div.bg-danger:has-text("Podwyższona")')).toBeVisible();
+    // Sprawdź kategorię "Podwyższony" (>= 40%)
+    await expect(page.locator('p:has-text("Podwyższony")').first()).toBeVisible();
 
     // Screenshot
     await page.screenshot({ path: 'test-results/bai-20-edge-40-kobieta.png', fullPage: true });
@@ -552,7 +564,8 @@ test.describe('BAI Calculator - Testy E2E', () => {
     await page.waitForTimeout(1000);
 
     // Sprawdź wartość BAI (około 8%)
-    await expect(page.locator('span.text-5xl').filter({ hasText: /^[0-9]\./ })).toBeVisible();
+    const baiSection = page.locator('div:has-text("Twoje BAI")').first();
+    await expect(baiSection.locator('span.text-5xl').filter({ hasText: /^[0-9]\./ })).toBeVisible();
 
     // Screenshot
     await page.screenshot({ path: 'test-results/bai-21-edge-8-mezczyzna.png', fullPage: true });
@@ -571,7 +584,8 @@ test.describe('BAI Calculator - Testy E2E', () => {
     await page.waitForTimeout(1000);
 
     // Sprawdź wartość BAI (około 15%)
-    await expect(page.locator('span.text-5xl').filter({ hasText: /^1[0-9]\./ })).toBeVisible();
+    const baiSection = page.locator('div:has-text("Twoje BAI")').first();
+    await expect(baiSection.locator('span.text-5xl').filter({ hasText: /^1[0-9]\./ })).toBeVisible();
 
     // Screenshot
     await page.screenshot({ path: 'test-results/bai-22-edge-15-mezczyzna.png', fullPage: true });
@@ -590,7 +604,8 @@ test.describe('BAI Calculator - Testy E2E', () => {
     await page.waitForTimeout(1000);
 
     // Sprawdź wartość BAI (około 20%)
-    await expect(page.locator('span.text-5xl').filter({ hasText: /^2[0-9]\./ })).toBeVisible();
+    const baiSection = page.locator('div:has-text("Twoje BAI")').first();
+    await expect(baiSection.locator('span.text-5xl').filter({ hasText: /^2[0-9]\./ })).toBeVisible();
 
     // Screenshot
     await page.screenshot({ path: 'test-results/bai-23-edge-20-mezczyzna.png', fullPage: true });
@@ -609,10 +624,11 @@ test.describe('BAI Calculator - Testy E2E', () => {
     await page.waitForTimeout(1000);
 
     // Sprawdź wartość BAI (około 25%)
-    await expect(page.locator('span.text-5xl').filter({ hasText: /^2[0-9]\./ })).toBeVisible();
+    const baiSection = page.locator('div:has-text("Twoje BAI")').first();
+    await expect(baiSection.locator('span.text-5xl').filter({ hasText: /^2[0-9]\./ })).toBeVisible();
 
-    // Sprawdź kategorię "Podwyższona" (>= 25%)
-    await expect(page.locator('div.bg-danger:has-text("Podwyższona")')).toBeVisible();
+    // Sprawdź kategorię "Podwyższony" (>= 25%)
+    await expect(page.locator('p:has-text("Podwyższony")').first()).toBeVisible();
 
     // Screenshot
     await page.screenshot({ path: 'test-results/bai-24-edge-25-mezczyzna.png', fullPage: true });

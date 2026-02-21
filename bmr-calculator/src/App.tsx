@@ -8,6 +8,8 @@ import { BMISection } from './components/BMISection';
 import { WHRSection } from './components/WHRSection';
 import { WHtRSection } from './components/WHtRSection';
 import { BAISection } from './components/BAISection';
+import { BodyCompositionSection } from './components/BodyCompositionSection';
+import { FFMISection } from './components/FFMISection';
 import { MacroCalculator } from './components/MacroCalculator';
 import { PDFExport } from './components/PDFExport';
 import { calculateAllBMR } from './utils/bmrModels';
@@ -15,6 +17,8 @@ import { getBMIData } from './utils/bmi';
 import { getWHRData } from './utils/whr';
 import { getWHtRData } from './utils/whtr';
 import { getBAIData } from './utils/bai';
+import { getBodyCompositionData } from './utils/bodyComposition';
+import { getFFMIData } from './utils/ffmi';
 import { calculateTDEE } from './utils/tdee';
 import { ACTIVITY_LEVELS } from './constants/formulas';
 
@@ -63,6 +67,23 @@ function App() {
     if (!formData.hipCircumference || !formData.height || !formData.gender) return null;
     return getBAIData(formData.hipCircumference, formData.height, formData.gender);
   }, [formData.hipCircumference, formData.height, formData.gender]);
+
+  // Calculate Body Composition (LBM + FFM) when weight/height/gender/bodyFat changes
+  const bodyCompositionData = useMemo(() => {
+    if (!formData.weight || !formData.height || !formData.gender) return null;
+    return getBodyCompositionData(
+      formData.weight,
+      formData.height,
+      formData.gender,
+      bodyFatPercentage
+    );
+  }, [formData.weight, formData.height, formData.gender, bodyFatPercentage]);
+
+  // Calculate FFMI when bodyComposition/height/gender changes
+  const ffmiData = useMemo(() => {
+    if (!bodyCompositionData?.ffm || !formData.height || !formData.gender) return null;
+    return getFFMIData(bodyCompositionData.ffm.ffm, formData.height, formData.gender);
+  }, [bodyCompositionData, formData.height, formData.gender]);
 
   // Calculate TDEE
   const tdee = useMemo(() => {
@@ -170,6 +191,20 @@ function App() {
               />
             )}
 
+            {bodyCompositionData && formData.gender && (
+              <BodyCompositionSection
+                bodyComposition={bodyCompositionData}
+                gender={formData.gender}
+              />
+            )}
+
+            {formData.gender && (
+              <FFMISection
+                ffmi={ffmiData ?? undefined}
+                gender={formData.gender}
+              />
+            )}
+
             {canExportPDF && formData.weight && formData.height && formData.age && formData.gender && (
               <PDFExport
                 formData={{
@@ -197,7 +232,7 @@ function App() {
       <footer className="bg-white border-t border-gray-200 mt-12">
         <div className="max-w-7xl mx-auto px-4 py-6">
           <p className="text-sm text-gray-500 text-center">
-            Kalkulator BMR - Faza 5: Eksport PDF ✓
+            Kalkulator BMR - Wskaźniki składu ciała: LBM, FFM, FFMI ✓
           </p>
         </div>
       </footer>

@@ -156,3 +156,52 @@ export interface BAIData {
   value: number;
   category: BAICategory;
 }
+
+// LBM (Lean Body Mass) types
+export type LBMFormula = 'boer' | 'james' | 'hume';
+
+export interface LBMResult {
+  formula: LBMFormula;
+  value: number; // kg
+  percentage: number; // percentage of total body weight
+  year: string;
+}
+
+export interface LBMData {
+  results: LBMResult[];
+  average: number; // average LBM in kg
+  averagePercentage: number; // average LBM as percentage
+}
+
+// FFM (Fat-Free Mass) types
+export interface FFMData {
+  ffm: number; // kg
+  percentage: number; // percentage of total body weight
+  breakdown: {
+    water: number; // ~73% of FFM
+    protein: number; // ~20% of FFM
+    minerals: number; // ~7% of FFM
+  };
+}
+
+// Combined Body Composition types
+export interface BodyCompositionData {
+  lbm: LBMData;
+  ffm?: FFMData; // only available if bodyFatPercentage is provided
+  difference?: number; // FFM - average LBM (only if FFM available)
+}
+
+// FFMI (Fat-Free Mass Index) types
+export type FFMICategory =
+  | 'below-average'
+  | 'average'
+  | 'above-average'
+  | 'very-good'
+  | 'excellent'
+  | 'suspicious';
+
+export interface FFMIData {
+  ffmi: number;
+  normalizedFFMI: number;
+  category: FFMICategory;
+}
