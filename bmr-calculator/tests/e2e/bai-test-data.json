@@ -1,0 +1,306 @@
+{
+  "description": "Dane testowe dla implementacji komponentu BAI",
+  "formula": "BAI = (hip_circumference_cm / height_m^1.5) - 18",
+  "testCases": {
+    "women": [
+      {
+        "category": "very-low",
+        "description": "Bardzo niska (< 21%)",
+        "color": "yellow (bg-warning)",
+        "testData": {
+          "height": 170,
+          "hip": 75,
+          "expectedBAI": 13,
+          "expectedCategory": "Bardzo niska"
+        }
+      },
+      {
+        "category": "athletic",
+        "description": "Atletyczna (21-26%)",
+        "color": "green-light",
+        "testData": {
+          "height": 165,
+          "hip": 85,
+          "expectedBAI": 23,
+          "expectedCategory": "Atletyczna"
+        }
+      },
+      {
+        "category": "normal",
+        "description": "Normalna (27-33%)",
+        "color": "green-dark",
+        "testData": {
+          "height": 170,
+          "hip": 95,
+          "expectedBAI": 30,
+          "expectedCategory": "Normalna"
+        }
+      },
+      {
+        "category": "average",
+        "description": "Przeciętna (34-39%)",
+        "color": "orange (bg-orange-500)",
+        "testData": {
+          "height": 165,
+          "hip": 100,
+          "expectedBAI": 36,
+          "expectedCategory": "Przeciętna"
+        }
+      },
+      {
+        "category": "elevated",
+        "description": "Podwyższona (≥ 40%)",
+        "color": "red (bg-danger)",
+        "testData": {
+          "height": 160,
+          "hip": 105,
+          "expectedBAI": 42,
+          "expectedCategory": "Podwyższona"
+        }
+      }
+    ],
+    "men": [
+      {
+        "category": "athletic",
+        "description": "Atletyczna (8-14%)",
+        "color": "green-light",
+        "testData": {
+          "height": 180,
+          "hip": 90,
+          "expectedBAI": 10,
+          "expectedCategory": "Atletyczna"
+        }
+      },
+      {
+        "category": "normal",
+        "description": "Normalna (15-19%)",
+        "color": "green-dark",
+        "testData": {
+          "height": 175,
+          "hip": 95,
+          "expectedBAI": 17,
+          "expectedCategory": "Normalna"
+        }
+      },
+      {
+        "category": "average",
+        "description": "Przeciętna (20-24%)",
+        "color": "orange (bg-orange-500)",
+        "testData": {
+          "height": 170,
+          "hip": 95,
+          "expectedBAI": 22,
+          "expectedCategory": "Przeciętna"
+        }
+      },
+      {
+        "category": "elevated",
+        "description": "Podwyższona (≥ 25%)",
+        "color": "red (bg-danger)",
+        "testData": {
+          "height": 165,
+          "hip": 100,
+          "expectedBAI": 27,
+          "expectedCategory": "Podwyższona"
+        }
+      }
+    ],
+    "edgeCases": {
+      "women": [
+        {
+          "boundary": "21%",
+          "description": "Granica między very-low a athletic",
+          "testData": {
+            "height": 168,
+            "hip": 82,
+            "expectedBAI": 21
+          }
+        },
+        {
+          "boundary": "27%",
+          "description": "Granica między athletic a normal",
+          "testData": {
+            "height": 165,
+            "hip": 90,
+            "expectedBAI": 27
+          }
+        },
+        {
+          "boundary": "34%",
+          "description": "Granica między normal a average",
+          "testData": {
+            "height": 165,
+            "hip": 98,
+            "expectedBAI": 34
+          }
+        },
+        {
+          "boundary": "40%",
+          "description": "Granica między average a elevated",
+          "testData": {
+            "height": 160,
+            "hip": 103,
+            "expectedBAI": 40
+          }
+        }
+      ],
+      "men": [
+        {
+          "boundary": "8%",
+          "description": "Początek kategorii athletic",
+          "testData": {
+            "height": 185,
+            "hip": 87,
+            "expectedBAI": 8
+          }
+        },
+        {
+          "boundary": "15%",
+          "description": "Granica między athletic a normal",
+          "testData": {
+            "height": 178,
+            "hip": 93,
+            "expectedBAI": 15
+          }
+        },
+        {
+          "boundary": "20%",
+          "description": "Granica między normal a average",
+          "testData": {
+            "height": 172,
+            "hip": 94,
+            "expectedBAI": 20
+          }
+        },
+        {
+          "boundary": "25%",
+          "description": "Granica między average a elevated",
+          "testData": {
+            "height": 168,
+            "hip": 98,
+            "expectedBAI": 25
+          }
+        }
+      ]
+    }
+  },
+  "norms": {
+    "women": {
+      "very_low": {
+        "range": "< 21%",
+        "color": "yellow",
+        "class": "bg-warning",
+        "label": "Bardzo niska"
+      },
+      "athletic": {
+        "range": "21-26%",
+        "color": "green-light",
+        "label": "Atletyczna"
+      },
+      "normal": {
+        "range": "27-33%",
+        "color": "green-dark",
+        "label": "Normalna"
+      },
+      "average": {
+        "range": "34-39%",
+        "color": "orange",
+        "class": "bg-orange-500",
+        "label": "Przeciętna"
+      },
+      "elevated": {
+        "range": "≥ 40%",
+        "color": "red",
+        "class": "bg-danger",
+        "label": "Podwyższona"
+      }
+    },
+    "men": {
+      "athletic": {
+        "range": "8-14%",
+        "color": "green-light",
+        "label": "Atletyczna"
+      },
+      "normal": {
+        "range": "15-19%",
+        "color": "green-dark",
+        "label": "Normalna"
+      },
+      "average": {
+        "range": "20-24%",
+        "color": "orange",
+        "class": "bg-orange-500",
+        "label": "Przeciętna"
+      },
+      "elevated": {
+        "range": "≥ 25%",
+        "color": "red",
+        "class": "bg-danger",
+        "label": "Podwyższona"
+      }
+    }
+  },
+  "ui_elements": {
+    "title": "BAI - Body Adiposity Index",
+    "value_selector": "span.text-5xl",
+    "purple_box": {
+      "class": "bg-purple-50",
+      "title": "Unikalność BAI",
+      "content": "Nie wymaga wagi - tylko wzrost i obwód bioder"
+    },
+    "indigo_box": {
+      "class": "bg-indigo-50",
+      "title": "Wzór BAI",
+      "content": "BAI = (obwód bioder [cm] / wzrost [m]^1.5) - 18"
+    },
+    "scale": {
+      "title": "Skala BAI",
+      "colors": ["yellow", "green-light", "green-dark", "orange", "red"],
+      "sections": 5
+    }
+  },
+  "validation": {
+    "show_component_when": {
+      "height_provided": true,
+      "hip_provided": true,
+      "weight_required": false
+    },
+    "hide_component_when": {
+      "hip_missing": true
+    }
+  },
+  "responsive_breakpoints": {
+    "mobile": {
+      "width": 375,
+      "height": 667
+    },
+    "tablet": {
+      "width": 768,
+      "height": 1024
+    },
+    "desktop": {
+      "width": 1280
+    }
+  },
+  "example_calculation": {
+    "description": "Przykład obliczenia BAI dla kobiety",
+    "input": {
+      "height_cm": 170,
+      "hip_cm": 95,
+      "gender": "female"
+    },
+    "calculation_steps": [
+      "1. Zamień wzrost na metry: 170 cm = 1.70 m",
+      "2. Oblicz wzrost^1.5: 1.70^1.5 = 2.217",
+      "3. Podziel obwód bioder przez wynik: 95 / 2.217 = 42.85",
+      "4. Odejmij 18: 42.85 - 18 = 24.85",
+      "5. Wynik: BAI = 24.85% (zaokrąglij do 25%)"
+    ],
+    "result": {
+      "bai_value": 25,
+      "category": "Atletyczna",
+      "color": "green-light",
+      "interpretation": "Prawidłowy poziom tkanki tłuszczowej dla kobiety"
+    }
+  }
+}

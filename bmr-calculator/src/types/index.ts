@@ -148,3 +148,11 @@ export interface WHtRData {
   value: number;
   category: WHtRCategory;
 }
+
+// BAI (Body Adiposity Index) types
+export type BAICategory = 'very-low' | 'athletic' | 'normal' | 'average' | 'elevated';
+
+export interface BAIData {
+  value: number;
+  category: BAICategory;
+}

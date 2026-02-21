@@ -7,12 +7,14 @@ import { TDEESection } from './components/TDEESection';
 import { BMISection } from './components/BMISection';
 import { WHRSection } from './components/WHRSection';
 import { WHtRSection } from './components/WHtRSection';
+import { BAISection } from './components/BAISection';
 import { MacroCalculator } from './components/MacroCalculator';
 import { PDFExport } from './components/PDFExport';
 import { calculateAllBMR } from './utils/bmrModels';
 import { getBMIData } from './utils/bmi';
 import { getWHRData } from './utils/whr';
 import { getWHtRData } from './utils/whtr';
+import { getBAIData } from './utils/bai';
 import { calculateTDEE } from './utils/tdee';
 import { ACTIVITY_LEVELS } from './constants/formulas';
 
@@ -55,6 +57,12 @@ function App() {
     if (!formData.waistCircumference || !formData.height) return null;
     return getWHtRData(formData.waistCircumference, formData.height);
   }, [formData.waistCircumference, formData.height]);
+
+  // Calculate BAI when hip/height/gender changes
+  const baiData = useMemo(() => {
+    if (!formData.hipCircumference || !formData.height || !formData.gender) return null;
+    return getBAIData(formData.hipCircumference, formData.height, formData.gender);
+  }, [formData.hipCircumference, formData.height, formData.gender]);
 
   // Calculate TDEE
   const tdee = useMemo(() => {
@@ -151,6 +159,15 @@ function App() {
 
             {whtrData && formData.height && (
               <WHtRSection whtr={whtrData} height={formData.height} />
+            )}
+
+            {baiData && formData.gender && formData.hipCircumference && formData.height && (
+              <BAISection
+                bai={baiData}
+                gender={formData.gender}
+                hipCircumference={formData.hipCircumference}
+                height={formData.height}
+              />
             )}
 
             {canExportPDF && formData.weight && formData.height && formData.age && formData.gender && (
