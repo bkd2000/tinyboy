@@ -51,7 +51,7 @@ export interface DeurenbergParams {
   gender: Gender;
 }
 
-export type BodyFatMethod = 'manual' | 'navy' | 'deurenberg';
+export type BodyFatMethod = 'manual' | 'navy' | 'deurenberg' | 'bai';
 
 export interface BMIData {
   value: number;
@@ -126,6 +126,11 @@ export interface PDFData {
   tdee: number;
   activityLevel: ActivityLevel;
   bmi: BMIData;
+  whr?: WHRData;
+  whtr?: WHtRData;
+  bodyComposition?: BodyCompositionData;
+  ffmi?: FFMIData;
+  advancedMetrics?: AdvancedBodyMetricsData;
   macros?: MacroResults;
   generatedAt: Date;
 }
@@ -204,4 +209,43 @@ export interface FFMIData {
   ffmi: number;
   normalizedFFMI: number;
   category: FFMICategory;
+}
+
+// SMM (Skeletal Muscle Mass) types
+export interface SMMData {
+  smm: number; // kg
+  percentage: number; // percentage of total body weight
+  category: string;
+}
+
+// TBW (Total Body Water) types
+export interface TBWData {
+  tbw: number; // liters
+  percentage: number; // percentage of total body weight
+  category: string;
+}
+
+// Metabolic Age types
+export interface MetabolicAgeData {
+  metabolicAge: number; // years
+  actualAge: number; // years
+  difference: number; // metabolicAge - actualAge
+  category: string;
+  description: string;
+}
+
+// Visceral Fat types
+export interface VisceralFatData {
+  level: number; // 1-59 scale
+  category: string;
+  risk: string;
+  description: string;
+}
+
+// Advanced Body Metrics - combined data
+export interface AdvancedBodyMetricsData {
+  smm?: SMMData;
+  tbw: TBWData;
+  metabolicAge: MetabolicAgeData;
+  visceralFat?: VisceralFatData; // requires waist circumference
 }

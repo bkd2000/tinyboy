@@ -82,11 +82,10 @@ export function MacroCalculator({ tdee, bodyWeight, bodyFatPercentage }: MacroCa
                 className={`
                   flex-1 py-2 rounded-lg border-2 font-medium transition-all
                   ${meals === n
-                    ? 'bg-primary border-primary'
-                    : 'bg-white border-gray-300 hover:border-primary'
+                    ? 'bg-blue-700 border-blue-700 text-white'
+                    : 'bg-white text-gray-700 border-gray-300 hover:border-primary'
                   }
                 `}
-                style={meals === n ? { color: 'white' } : undefined}
               >
                 {n}
               </button>
@@ -171,15 +170,11 @@ function MacroBar({ label, color, grams, calories, percentage, perMeal }: MacroB
       {/* Progress bar */}
       <div className="w-full bg-gray-200 rounded-full h-8 overflow-hidden">
         <div
-          className={`${color} h-full flex items-center justify-center text-white text-sm font-medium transition-all duration-300`}
+          className={`${color} h-full transition-all duration-300`}
           style={{ width: `${percentage}%` }}
-        >
-          {percentage >= 15 && `Na posiłek: ~${perMeal}g`}
-        </div>
+        />
       </div>
-      {percentage < 15 && (
-        <p className="text-xs text-gray-600 mt-1">Na posiłek: ~{perMeal}g</p>
-      )}
+      <p className="text-xs text-gray-600 mt-1">Na posiłek: ~{perMeal}g</p>
     </div>
   );
 }

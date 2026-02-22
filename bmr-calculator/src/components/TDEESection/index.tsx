@@ -32,7 +32,7 @@ export function TDEESection({ bmr, activityLevel, onChange }: TDEESectionProps) 
             className={`
               w-full text-left p-4 rounded-lg border-2 transition-all
               ${level.value === activityLevel
-                ? 'border-primary bg-primary-50 shadow-sm'
+                ? 'border-blue-700 border-4 bg-white shadow-sm'
                 : 'border-gray-200 hover:border-gray-300 hover:bg-gray-50'
               }
             `}
@@ -40,30 +40,27 @@ export function TDEESection({ bmr, activityLevel, onChange }: TDEESectionProps) 
             <div className="flex items-start justify-between gap-3">
               <div className="flex-1">
                 <div className="flex items-center gap-2 mb-1">
-                  <h3 className={`font-semibold ${
-                    level.value === activityLevel ? 'text-primary-900' : 'text-gray-900'
-                  }`}>
+                  <h3 className="font-semibold text-gray-900">
                     {level.label}
                   </h3>
                   <span
                     className={`text-sm px-2 py-0.5 rounded ${
                       level.value === activityLevel
-                        ? 'bg-primary'
+                        ? 'bg-blue-700 text-white'
                         : 'bg-gray-200 text-gray-700'
                     }`}
-                    style={level.value === activityLevel ? { color: '#FFFFFF' } : undefined}
                   >
                     ×{level.value}
                   </span>
                 </div>
-                <p className="text-sm text-gray-600 mb-2">{level.description}</p>
-                <p className="text-xs text-gray-500 italic">
+                <p className="text-sm mb-2 text-gray-600">{level.description}</p>
+                <p className="text-xs italic text-gray-500">
                   Przykład: {level.examples}
                 </p>
               </div>
               {level.value === activityLevel && (
                 <div className="flex-shrink-0">
-                  <div className="w-6 h-6 bg-primary rounded-full flex items-center justify-center">
+                  <div className="w-6 h-6 bg-blue-700 rounded-full flex items-center justify-center">
                     <svg className="w-4 h-4 text-white" fill="currentColor" viewBox="0 0 20 20">
                       <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
                     </svg>

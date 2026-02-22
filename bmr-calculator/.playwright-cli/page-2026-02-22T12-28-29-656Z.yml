@@ -1,0 +1,107 @@
+- generic [ref=e3]:
+  - banner [ref=e4]:
+    - generic [ref=e5]:
+      - heading "BodyMetrics Pro" [level=1] [ref=e6]
+      - paragraph [ref=e7]: Wszystko czego potrzebujesz do profesjonalnej oceny składu ciała
+  - main [ref=e8]:
+    - generic [ref=e9]:
+      - generic [ref=e10]:
+        - generic [ref=e11]:
+          - generic [ref=e12]:
+            - img [ref=e13]
+            - heading "Dane podstawowe" [level=2] [ref=e16]
+          - generic [ref=e17]:
+            - generic [ref=e18]:
+              - generic [ref=e19]: Waga *
+              - generic [ref=e20]:
+                - generic:
+                  - img
+                - spinbutton "Waga *" [ref=e21]
+                - generic:
+                  - generic: kg
+            - generic [ref=e22]:
+              - generic [ref=e23]: Wzrost *
+              - generic [ref=e24]:
+                - generic:
+                  - img
+                - spinbutton "Wzrost *" [ref=e25]
+                - generic:
+                  - generic: cm
+            - generic [ref=e26]:
+              - generic [ref=e27]: Wiek *
+              - generic [ref=e28]:
+                - generic:
+                  - img
+                - spinbutton "Wiek *" [ref=e29]
+                - generic:
+                  - generic: lat
+            - generic [ref=e30]:
+              - generic [ref=e31]: Płeć *
+              - generic [ref=e32]:
+                - button "Mężczyzna" [ref=e33]
+                - button "Kobieta" [ref=e34]
+          - generic [ref=e35]:
+            - heading "Obwody ciała (opcjonalne, dla estymacji tkanki tłuszczowej)" [level=3] [ref=e36]
+            - generic [ref=e37]:
+              - generic [ref=e38]:
+                - generic [ref=e39]: Obwód szyi
+                - generic [ref=e40]:
+                  - spinbutton "Obwód szyi" [ref=e41]
+                  - generic:
+                    - generic: cm
+              - generic [ref=e42]:
+                - generic [ref=e43]: Obwód talii
+                - generic [ref=e44]:
+                  - spinbutton "Obwód talii" [ref=e45]
+                  - generic:
+                    - generic: cm
+              - generic [ref=e46]:
+                - generic [ref=e47]: Obwód bioder
+                - generic [ref=e48]:
+                  - spinbutton "Obwód bioder" [ref=e49]
+                  - generic:
+                    - generic: cm
+          - paragraph [ref=e50]: "* Pola wymagane"
+        - generic [ref=e51]:
+          - generic [ref=e52]:
+            - img [ref=e53]
+            - heading "Estymacja tkanki tłuszczowej" [level=2] [ref=e55]
+          - generic [ref=e56]:
+            - generic [ref=e57]: Wybierz metodę estymacji
+            - generic [ref=e58]:
+              - button "Ręczne wprowadzenie Wpisz znany % tkanki tłuszczowej (np. z pomiaru)" [ref=e59]:
+                - generic [ref=e60]: Ręczne wprowadzenie
+                - generic [ref=e61]: Wpisz znany % tkanki tłuszczowej (np. z pomiaru)
+              - button "Metoda US Navy Brak danych Obliczenie na podstawie obwodów ciała (szyja, talia)" [ref=e62]:
+                - generic [ref=e63]:
+                  - generic [ref=e64]: Metoda US Navy
+                  - generic [ref=e65]: Brak danych
+                - generic [ref=e66]: Obliczenie na podstawie obwodów ciała (szyja, talia)
+              - button "Metoda Deurenberg Brak danych Obliczenie na podstawie BMI, wieku i płci" [ref=e67]:
+                - generic [ref=e68]:
+                  - generic [ref=e69]: Metoda Deurenberg
+                  - generic [ref=e70]: Brak danych
+                - generic [ref=e71]: Obliczenie na podstawie BMI, wieku i płci
+              - button "Metoda BAI (Body Adiposity Index) Brak danych Obliczenie na podstawie obwodu bioder i wzrostu" [ref=e72]:
+                - generic [ref=e73]:
+                  - generic [ref=e74]: Metoda BAI (Body Adiposity Index)
+                  - generic [ref=e75]: Brak danych
+                - generic [ref=e76]: Obliczenie na podstawie obwodu bioder i wzrostu
+          - generic [ref=e77]:
+            - generic [ref=e78]: "% tkanki tłuszczowej"
+            - generic [ref=e79]:
+              - spinbutton "% tkanki tłuszczowej" [ref=e80]
+              - generic:
+                - generic: "%"
+      - generic [ref=e82]:
+        - heading "Wyniki" [level=2] [ref=e83]
+        - generic [ref=e84]:
+          - img [ref=e86]
+          - paragraph [ref=e88]: Wprowadź dane podstawowe
+          - paragraph [ref=e89]: Uzupełnij wagę, wzrost, wiek i płeć, aby zobaczyć wyniki BMR, TDEE i BMI
+  - contentinfo [ref=e90]:
+    - generic [ref=e91]:
+      - paragraph [ref=e92]:
+        - strong [ref=e93]: BodyMetrics Pro
+        - text: "- Advanced Body Composition & Metabolism Calculator"
+      - paragraph [ref=e94]: 11 formuł BMR • 4 metody estymacji BF% • 15+ wskaźników składu ciała

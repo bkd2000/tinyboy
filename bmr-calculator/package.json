@@ -1,7 +1,8 @@
 {
-  "name": "bmr-calculator",
+  "name": "bodymetrics-pro",
   "private": true,
-  "version": "0.0.0",
+  "version": "1.0.0",
+  "description": "Advanced Body Composition & Metabolism Calculator - Everything you need for professional body composition assessment",
   "type": "module",
   "scripts": {
     "dev": "vite",

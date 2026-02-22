@@ -83,6 +83,7 @@ export async function generatePDF(data: PDFData): Promise<void> {
     const methodLabel =
       data.bodyFatMethod === 'manual' ? 'Ręczne' :
       data.bodyFatMethod === 'navy' ? 'US Navy' :
+      data.bodyFatMethod === 'bai' ? 'BAI' :
       'Deurenberg (BMI)';
     inputData.push(['% tkanki tłuszczowej', `${data.bodyFatPercentage.toFixed(1)}% (${methodLabel})`]);
   }
@@ -274,6 +275,250 @@ export async function generatePDF(data: PDFData): Promise<void> {
   });
 
   yPos = (doc as any).lastAutoTable.finalY + 10;
+
+  // Section: WHR (Waist-to-Hip Ratio)
+  if (data.whr) {
+    if (yPos > 240) {
+      doc.addPage();
+      yPos = 20;
+    }
+
+    doc.setFillColor(240, 249, 255);
+    doc.rect(10, yPos, pageWidth - 20, 8, 'F');
+    addText('WHR - STOSUNEK TALII DO BIODER', 14, 12, 'bold');
+    yPos += 3;
+
+    const whrRiskLabel =
+      data.whr.risk === 'low' ? 'Niskie ryzyko' :
+      data.whr.risk === 'moderate' ? 'Umiarkowane ryzyko' :
+      'Wysokie ryzyko';
+
+    const whrData = [
+      ['Wartość WHR', `${data.whr.value.toFixed(2)}`],
+      ['Ryzyko zdrowotne', whrRiskLabel],
+    ];
+
+    autoTable(doc, {
+      startY: yPos,
+      head: [],
+      body: whrData,
+      theme: 'plain',
+      styles: {
+        fontSize: 10,
+        cellPadding: 2,
+        font: 'helvetica',
+      },
+      columnStyles: {
+        0: { fontStyle: 'bold', cellWidth: 60 },
+        1: { cellWidth: 'auto' },
+      },
+      margin: { left: 14, right: 14 },
+    });
+
+    yPos = (doc as any).lastAutoTable.finalY + 10;
+  }
+
+  // Section: WHtR (Waist-to-Height Ratio)
+  if (data.whtr) {
+    if (yPos > 240) {
+      doc.addPage();
+      yPos = 20;
+    }
+
+    doc.setFillColor(240, 249, 255);
+    doc.rect(10, yPos, pageWidth - 20, 8, 'F');
+    addText('WHtR - STOSUNEK TALII DO WZROSTU', 14, 12, 'bold');
+    yPos += 3;
+
+    const whtrCategoryLabel =
+      data.whtr.category === 'very-lean' ? 'Bardzo szczupła' :
+      data.whtr.category === 'healthy' ? 'Zdrowa' :
+      data.whtr.category === 'increased-risk' ? 'Zwiększone ryzyko' :
+      'Wysokie ryzyko';
+
+    const whtrData = [
+      ['Wartość WHtR', `${data.whtr.value.toFixed(2)}`],
+      ['Kategoria', whtrCategoryLabel],
+    ];
+
+    autoTable(doc, {
+      startY: yPos,
+      head: [],
+      body: whtrData,
+      theme: 'plain',
+      styles: {
+        fontSize: 10,
+        cellPadding: 2,
+        font: 'helvetica',
+      },
+      columnStyles: {
+        0: { fontStyle: 'bold', cellWidth: 60 },
+        1: { cellWidth: 'auto' },
+      },
+      margin: { left: 14, right: 14 },
+    });
+
+    yPos = (doc as any).lastAutoTable.finalY + 10;
+  }
+
+  // Section: Body Composition (LBM & FFM)
+  if (data.bodyComposition) {
+    if (yPos > 220) {
+      doc.addPage();
+      yPos = 20;
+    }
+
+    doc.setFillColor(240, 249, 255);
+    doc.rect(10, yPos, pageWidth - 20, 8, 'F');
+    addText('SKŁAD CIAŁA - LBM & FFM', 14, 12, 'bold');
+    yPos += 3;
+
+    const bodyCompData = [
+      ['Beztłuszczowa masa ciała (LBM)', `${data.bodyComposition.lbm.average.toFixed(1)} kg (${data.bodyComposition.lbm.averagePercentage.toFixed(1)}%)`],
+    ];
+
+    // Add individual LBM formulas
+    data.bodyComposition.lbm.results.forEach(result => {
+      bodyCompData.push([`  ${result.formula}`, `${result.value.toFixed(1)} kg (${result.percentage.toFixed(1)}%)`]);
+    });
+
+    // Add FFM if available
+    if (data.bodyComposition.ffm) {
+      bodyCompData.push(['', '']);
+      bodyCompData.push(['Fat-Free Mass (FFM)', `${data.bodyComposition.ffm.ffm.toFixed(1)} kg (${data.bodyComposition.ffm.percentage.toFixed(1)}%)`]);
+    }
+
+    autoTable(doc, {
+      startY: yPos,
+      head: [],
+      body: bodyCompData,
+      theme: 'plain',
+      styles: {
+        fontSize: 10,
+        cellPadding: 2,
+        font: 'helvetica',
+      },
+      columnStyles: {
+        0: { fontStyle: 'bold', cellWidth: 80 },
+        1: { cellWidth: 'auto' },
+      },
+      margin: { left: 14, right: 14 },
+    });
+
+    yPos = (doc as any).lastAutoTable.finalY + 10;
+  }
+
+  // Section: FFMI
+  if (data.ffmi) {
+    if (yPos > 240) {
+      doc.addPage();
+      yPos = 20;
+    }
+
+    doc.setFillColor(240, 249, 255);
+    doc.rect(10, yPos, pageWidth - 20, 8, 'F');
+    addText('FFMI - WSKAŹNIK BEZTŁUSZCZOWEJ MASY CIAŁA', 14, 12, 'bold');
+    yPos += 3;
+
+    const ffmiCategoryLabel =
+      data.ffmi.category === 'below-average' ? 'Poniżej przeciętnej' :
+      data.ffmi.category === 'average' ? 'Przeciętna' :
+      data.ffmi.category === 'above-average' ? 'Powyżej przeciętnej' :
+      'Doskonała';
+
+    const ffmiData = [
+      ['FFMI', `${data.ffmi.ffmi.toFixed(1)}`],
+      ['FFMI znormalizowany', `${data.ffmi.normalizedFFMI.toFixed(1)}`],
+      ['Kategoria', ffmiCategoryLabel],
+    ];
+
+    autoTable(doc, {
+      startY: yPos,
+      head: [],
+      body: ffmiData,
+      theme: 'plain',
+      styles: {
+        fontSize: 10,
+        cellPadding: 2,
+        font: 'helvetica',
+      },
+      columnStyles: {
+        0: { fontStyle: 'bold', cellWidth: 60 },
+        1: { cellWidth: 'auto' },
+      },
+      margin: { left: 14, right: 14 },
+    });
+
+    yPos = (doc as any).lastAutoTable.finalY + 10;
+  }
+
+  // Section: Advanced Body Metrics
+  if (data.advancedMetrics) {
+    if (yPos > 200) {
+      doc.addPage();
+      yPos = 20;
+    }
+
+    doc.setFillColor(240, 249, 255);
+    doc.rect(10, yPos, pageWidth - 20, 8, 'F');
+    addText('ZAAWANSOWANE WSKAŹNIKI SKŁADU CIAŁA', 14, 12, 'bold');
+    yPos += 3;
+
+    const advancedData = [];
+
+    // SMM (Skeletal Muscle Mass)
+    if (data.advancedMetrics.smm) {
+      advancedData.push(['Masa mięśni szkieletowych (SMM)', `${data.advancedMetrics.smm.smm.toFixed(1)} kg (${data.advancedMetrics.smm.percentage.toFixed(1)}%)`]);
+    }
+
+    // TBW (Total Body Water)
+    if (data.advancedMetrics.tbw) {
+      advancedData.push(['Całkowita woda w organizmie (TBW)', `${data.advancedMetrics.tbw.tbw.toFixed(1)} L (${data.advancedMetrics.tbw.percentage.toFixed(1)}%)`]);
+    }
+
+    // Metabolic Age
+    if (data.advancedMetrics.metabolicAge) {
+      const metAgeLabel =
+        data.advancedMetrics.metabolicAge.category === 'younger' ? 'Młodszy niż wiek kalendarzowy' :
+        data.advancedMetrics.metabolicAge.category === 'match' ? 'Odpowiada wiekowi kalendarzowemu' :
+        'Starszy niż wiek kalendarzowy';
+
+      advancedData.push(['Wiek metaboliczny', `${data.advancedMetrics.metabolicAge.metabolicAge} lat`]);
+      advancedData.push(['Ocena', metAgeLabel]);
+    }
+
+    // Visceral Fat
+    if (data.advancedMetrics.visceralFat) {
+      const visceralLabel =
+        data.advancedMetrics.visceralFat.category === 'healthy' ? 'Zdrowy poziom' :
+        data.advancedMetrics.visceralFat.category === 'elevated' ? 'Podwyższony' :
+        'Wysokie ryzyko';
+
+      advancedData.push(['Tłuszcz trzewny', `${data.advancedMetrics.visceralFat.level}`]);
+      advancedData.push(['Kategoria', visceralLabel]);
+    }
+
+    if (advancedData.length > 0) {
+      autoTable(doc, {
+        startY: yPos,
+        head: [],
+        body: advancedData,
+        theme: 'plain',
+        styles: {
+          fontSize: 10,
+          cellPadding: 2,
+          font: 'helvetica',
+        },
+        columnStyles: {
+          0: { fontStyle: 'bold', cellWidth: 80 },
+          1: { cellWidth: 'auto' },
+        },
+        margin: { left: 14, right: 14 },
+      });
+
+      yPos = (doc as any).lastAutoTable.finalY + 10;
+    }
+  }
 
   // Footer / Disclaimer
   const pageHeight = doc.internal.pageSize.getHeight();

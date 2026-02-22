@@ -1,5 +1,16 @@
 import { useState } from 'react';
-import type { BMRResults, BMIData, ActivityLevel, Gender } from '../../types';
+import type {
+  BMRResults,
+  BMIData,
+  ActivityLevel,
+  Gender,
+  BodyFatMethod,
+  WHRData,
+  WHtRData,
+  BodyCompositionData,
+  FFMIData,
+  AdvancedBodyMetricsData
+} from '../../types';
 import { generatePDF } from '../../utils/pdfGenerator';
 import { FileDown, User } from 'lucide-react';
 
@@ -14,11 +25,16 @@ interface PDFExportProps {
     hipCircumference?: number;
   };
   bodyFatPercentage?: number;
-  bodyFatMethod?: 'manual' | 'navy' | 'deurenberg';
+  bodyFatMethod?: BodyFatMethod;
   bmrResults: BMRResults;
   tdee: number;
   activityLevel: ActivityLevel;
   bmiData: BMIData;
+  whrData?: WHRData | null;
+  whtrData?: WHtRData | null;
+  bodyCompositionData?: BodyCompositionData | null;
+  ffmiData?: FFMIData | null;
+  advancedMetricsData?: AdvancedBodyMetricsData | null;
 }
 
 export function PDFExport({
@@ -29,6 +45,11 @@ export function PDFExport({
   tdee,
   activityLevel,
   bmiData,
+  whrData,
+  whtrData,
+  bodyCompositionData,
+  ffmiData,
+  advancedMetricsData,
 }: PDFExportProps) {
   const [clientName, setClientName] = useState('');
   const [isGenerating, setIsGenerating] = useState(false);
@@ -46,6 +67,11 @@ export function PDFExport({
         tdee,
         activityLevel,
         bmi: bmiData,
+        whr: whrData ?? undefined,
+        whtr: whtrData ?? undefined,
+        bodyComposition: bodyCompositionData ?? undefined,
+        ffmi: ffmiData ?? undefined,
+        advancedMetrics: advancedMetricsData ?? undefined,
         generatedAt: new Date(),
       });
       console.log('PDF generated successfully!');

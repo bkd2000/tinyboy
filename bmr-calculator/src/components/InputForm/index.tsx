@@ -187,11 +187,10 @@ export function InputForm({ data, onChange }: InputFormProps) {
               className={`
                 flex-1 py-2 px-4 rounded-lg border-2 font-medium transition-all
                 ${data.gender === 'male'
-                  ? 'bg-primary border-primary'
+                  ? 'bg-blue-700 border-blue-700 text-white'
                   : 'bg-white text-gray-700 border-gray-300 hover:border-primary'
                 }
               `}
-              style={data.gender === 'male' ? { color: 'white' } : undefined}
             >
               Mężczyzna
             </button>
@@ -202,11 +201,10 @@ export function InputForm({ data, onChange }: InputFormProps) {
               className={`
                 flex-1 py-2 px-4 rounded-lg border-2 font-medium transition-all
                 ${data.gender === 'female'
-                  ? 'bg-primary border-primary'
+                  ? 'bg-blue-700 border-blue-700 text-white'
                   : 'bg-white text-gray-700 border-gray-300 hover:border-primary'
                 }
               `}
-              style={data.gender === 'female' ? { color: 'white' } : undefined}
             >
               Kobieta
             </button>

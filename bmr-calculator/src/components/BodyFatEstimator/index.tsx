@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import type { FormData, BodyFatMethod } from '../../types';
 import { estimateBodyFatUSNavy, estimateBodyFatDeurenberg, getBodyFatCategory } from '../../utils/bodyFat';
 import { calculateBMI } from '../../utils/bmi';
+import { calculateBAI, getBAICategory, getBAICategoryLabel, getBAICategoryDescription, getBAICategoryColor } from '../../utils/bai';
 import { Activity, Info } from 'lucide-react';
 
 interface BodyFatEstimatorProps {
@@ -66,6 +67,15 @@ export function BodyFatEstimator({ formData, value, onChange }: BodyFatEstimator
         });
 
         onChange(bodyFat);
+      } else if (method === 'bai') {
+        // BAI method uses hip circumference and height
+        if (!formData.hipCircumference || !formData.height) {
+          onChange(undefined);
+          return;
+        }
+
+        const bodyFat = calculateBAI(formData.hipCircumference, formData.height);
+        onChange(bodyFat);
       }
     } catch (error) {
       console.error('Body fat calculation error:', error);
@@ -94,8 +104,18 @@ export function BodyFatEstimator({ formData, value, onChange }: BodyFatEstimator
     return !!(formData.weight && formData.height && formData.age && formData.gender);
   };
 
+  const canCalculateBAI = () => {
+    return !!(formData.hipCircumference && formData.height);
+  };
+
   const bodyFatCategory = value && formData.gender
-    ? getBodyFatCategory(value, formData.gender)
+    ? (method === 'bai'
+        ? {
+            category: getBAICategoryLabel(getBAICategory(value, formData.gender)),
+            description: getBAICategoryDescription(getBAICategory(value, formData.gender), formData.gender),
+            color: getBAICategoryColor(getBAICategory(value, formData.gender))
+          }
+        : getBodyFatCategory(value, formData.gender))
     : null;
 
   return (
@@ -118,13 +138,13 @@ export function BodyFatEstimator({ formData, value, onChange }: BodyFatEstimator
             className={`
               w-full text-left p-3 rounded-lg border-2 transition-all
               ${method === 'manual'
-                ? 'border-primary bg-primary-50'
-                : 'border-gray-200 hover:border-gray-300'
+                ? 'border-blue-700 border-4 bg-white'
+                : 'border-gray-200 hover:border-gray-300 bg-white'
               }
             `}
           >
             <div className="font-medium text-gray-900">Ręczne wprowadzenie</div>
-            <div className="text-xs text-gray-600 mt-1">
+            <div className="text-xs mt-1 text-gray-600">
               Wpisz znany % tkanki tłuszczowej (np. z pomiaru)
             </div>
           </button>
@@ -136,8 +156,8 @@ export function BodyFatEstimator({ formData, value, onChange }: BodyFatEstimator
             className={`
               w-full text-left p-3 rounded-lg border-2 transition-all
               ${method === 'navy'
-                ? 'border-primary bg-primary-50'
-                : 'border-gray-200 hover:border-gray-300'
+                ? 'border-blue-700 border-4 bg-white'
+                : 'border-gray-200 hover:border-gray-300 bg-white'
               }
             `}
           >
@@ -149,7 +169,7 @@ export function BodyFatEstimator({ formData, value, onChange }: BodyFatEstimator
                 </span>
               )}
             </div>
-            <div className="text-xs text-gray-600 mt-1">
+            <div className="text-xs mt-1 text-gray-600">
               Obliczenie na podstawie obwodów ciała (szyja, talia{formData.gender === 'female' ? ', biodra' : ''})
             </div>
           </button>
@@ -161,8 +181,8 @@ export function BodyFatEstimator({ formData, value, onChange }: BodyFatEstimator
             className={`
               w-full text-left p-3 rounded-lg border-2 transition-all
               ${method === 'deurenberg'
-                ? 'border-primary bg-primary-50'
-                : 'border-gray-200 hover:border-gray-300'
+                ? 'border-blue-700 border-4 bg-white'
+                : 'border-gray-200 hover:border-gray-300 bg-white'
               }
             `}
           >
@@ -174,8 +194,33 @@ export function BodyFatEstimator({ formData, value, onChange }: BodyFatEstimator
                 </span>
               )}
             </div>
-            <div className="text-xs text-gray-600 mt-1">
+            <div className="text-xs mt-1 text-gray-600">
               Obliczenie na podstawie BMI, wieku i płci
+            </div>
+          </button>
+
+          {/* BAI */}
+          <button
+            type="button"
+            onClick={() => handleMethodChange('bai')}
+            className={`
+              w-full text-left p-3 rounded-lg border-2 transition-all
+              ${method === 'bai'
+                ? 'border-blue-700 border-4 bg-white'
+                : 'border-gray-200 hover:border-gray-300 bg-white'
+              }
+            `}
+          >
+            <div className="flex items-center justify-between">
+              <div className="font-medium text-gray-900">Metoda BAI (Body Adiposity Index)</div>
+              {!canCalculateBAI() && (
+                <span className="text-xs text-warning-600 bg-warning-50 px-2 py-1 rounded">
+                  Brak danych
+                </span>
+              )}
+            </div>
+            <div className="text-xs mt-1 text-gray-600">
+              Obliczenie na podstawie obwodu bioder i wzrostu
             </div>
           </button>
         </div>
@@ -226,6 +271,25 @@ export function BodyFatEstimator({ formData, value, onChange }: BodyFatEstimator
         </div>
       )}
 
+      {/* BAI Instructions */}
+      {method === 'bai' && !canCalculateBAI() && (
+        <div className="bg-blue-50 border border-blue-200 rounded-lg p-3">
+          <div className="flex gap-2">
+            <Info className="w-4 h-4 text-blue-600 flex-shrink-0 mt-0.5" />
+            <div className="text-sm text-blue-800">
+              <p className="font-medium mb-1">Wymagane pomiary:</p>
+              <ul className="list-disc list-inside space-y-0.5 text-xs">
+                <li>Obwód bioder</li>
+                <li>Wzrost</li>
+              </ul>
+              <p className="mt-2 text-xs">
+                Uzupełnij obwód bioder w formularzu danych podstawowych.
+              </p>
+            </div>
+          </div>
+        </div>
+      )}
+
       {/* Result Display */}
       {value !== undefined && (
         <div className="bg-gray-50 rounded-lg p-4 border border-gray-200">
@@ -250,6 +314,7 @@ export function BodyFatEstimator({ formData, value, onChange }: BodyFatEstimator
             Metoda: {
               method === 'manual' ? 'Ręczne wprowadzenie' :
               method === 'navy' ? 'US Navy' :
+              method === 'bai' ? 'BAI (Body Adiposity Index)' :
               'Deurenberg (BMI)'
             }
           </div>

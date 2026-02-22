@@ -1,0 +1,629 @@
+- generic [ref=e3]:
+  - banner [ref=e4]:
+    - generic [ref=e5]:
+      - heading "BodyMetrics Pro" [level=1] [ref=e6]
+      - paragraph [ref=e7]: Wszystko czego potrzebujesz do profesjonalnej oceny składu ciała
+  - main [ref=e8]:
+    - generic [ref=e9]:
+      - generic [ref=e10]:
+        - generic [ref=e11]:
+          - generic [ref=e12]:
+            - img [ref=e13]
+            - heading "Dane podstawowe" [level=2] [ref=e16]
+          - generic [ref=e17]:
+            - generic [ref=e18]:
+              - generic [ref=e19]: Waga *
+              - generic [ref=e20]:
+                - generic:
+                  - img
+                - spinbutton "Waga *" [ref=e21]: "70"
+                - generic:
+                  - generic: kg
+            - generic [ref=e22]:
+              - generic [ref=e23]: Wzrost *
+              - generic [ref=e24]:
+                - generic:
+                  - img
+                - spinbutton "Wzrost *" [ref=e25]: "175"
+                - generic:
+                  - generic: cm
+            - generic [ref=e26]:
+              - generic [ref=e27]: Wiek *
+              - generic [ref=e28]:
+                - generic:
+                  - img
+                - spinbutton "Wiek *" [ref=e29]: "30"
+                - generic:
+                  - generic: lat
+            - generic [ref=e30]:
+              - generic [ref=e31]: Płeć *
+              - generic [ref=e32]:
+                - button "Mężczyzna" [ref=e33]
+                - button "Kobieta" [ref=e34]
+          - generic [ref=e35]:
+            - heading "Obwody ciała (opcjonalne, dla estymacji tkanki tłuszczowej)" [level=3] [ref=e36]
+            - generic [ref=e37]:
+              - generic [ref=e38]:
+                - generic [ref=e39]: Obwód szyi
+                - generic [ref=e40]:
+                  - spinbutton "Obwód szyi" [ref=e41]
+                  - generic:
+                    - generic: cm
+              - generic [ref=e42]:
+                - generic [ref=e43]: Obwód talii
+                - generic [ref=e44]:
+                  - spinbutton "Obwód talii" [ref=e45]
+                  - generic:
+                    - generic: cm
+              - generic [ref=e46]:
+                - generic [ref=e47]: Obwód bioder
+                - generic [ref=e48]:
+                  - spinbutton "Obwód bioder" [ref=e49]
+                  - generic:
+                    - generic: cm
+          - paragraph [ref=e50]: "* Pola wymagane"
+        - generic [ref=e51]:
+          - generic [ref=e52]:
+            - img [ref=e53]
+            - heading "Estymacja tkanki tłuszczowej" [level=2] [ref=e55]
+          - generic [ref=e56]:
+            - generic [ref=e57]: Wybierz metodę estymacji
+            - generic [ref=e58]:
+              - button "Ręczne wprowadzenie Wpisz znany % tkanki tłuszczowej (np. z pomiaru)" [ref=e59]:
+                - generic [ref=e60]: Ręczne wprowadzenie
+                - generic [ref=e61]: Wpisz znany % tkanki tłuszczowej (np. z pomiaru)
+              - button "Metoda US Navy Brak danych Obliczenie na podstawie obwodów ciała (szyja, talia)" [ref=e62]:
+                - generic [ref=e63]:
+                  - generic [ref=e64]: Metoda US Navy
+                  - generic [ref=e65]: Brak danych
+                - generic [ref=e66]: Obliczenie na podstawie obwodów ciała (szyja, talia)
+              - button "Metoda Deurenberg Obliczenie na podstawie BMI, wieku i płci" [ref=e295]:
+                - generic [ref=e69]: Metoda Deurenberg
+                - generic [ref=e71]: Obliczenie na podstawie BMI, wieku i płci
+              - button "Metoda BAI (Body Adiposity Index) Brak danych Obliczenie na podstawie obwodu bioder i wzrostu" [ref=e72]:
+                - generic [ref=e73]:
+                  - generic [ref=e74]: Metoda BAI (Body Adiposity Index)
+                  - generic [ref=e75]: Brak danych
+                - generic [ref=e76]: Obliczenie na podstawie obwodu bioder i wzrostu
+          - generic [ref=e77]:
+            - generic [ref=e78]: "% tkanki tłuszczowej"
+            - generic [ref=e79]:
+              - spinbutton "% tkanki tłuszczowej" [ref=e80]
+              - generic:
+                - generic: "%"
+      - generic [ref=e81]:
+        - generic [ref=e296]:
+          - generic [ref=e297]:
+            - generic [ref=e298]:
+              - img [ref=e299]
+              - heading "Wyniki BMR" [level=2] [ref=e301]
+            - button "Sortuj" [ref=e302]:
+              - img [ref=e303]
+              - generic [ref=e306]: Sortuj
+          - generic [ref=e308]:
+            - generic [ref=e309]:
+              - paragraph [ref=e310]: Średni BMR
+              - paragraph [ref=e311]: Średnia z 9 dostępnych modeli
+            - generic [ref=e312]:
+              - paragraph [ref=e313]: "1655"
+              - paragraph [ref=e314]: kcal/dzień
+          - table [ref=e316]:
+            - rowgroup [ref=e317]:
+              - row "Model BMR Odchylenie" [ref=e318]:
+                - columnheader "Model" [ref=e319]
+                - columnheader "BMR" [ref=e320]
+                - columnheader "Odchylenie" [ref=e321]
+            - rowgroup [ref=e322]:
+              - row "Harris-Benedict Original 1919 1702 kcal/dzień +47 kcal +2.9%" [ref=e323]:
+                - cell "Harris-Benedict Original 1919" [ref=e324]:
+                  - generic [ref=e326]:
+                    - paragraph [ref=e327]: Harris-Benedict Original
+                    - paragraph [ref=e328]: "1919"
+                - cell "1702 kcal/dzień" [ref=e329]:
+                  - paragraph [ref=e331]: 1702 kcal/dzień
+                - cell "+47 kcal +2.9%" [ref=e332]:
+                  - generic [ref=e333]:
+                    - paragraph [ref=e334]: +47 kcal
+                    - paragraph [ref=e335]: +2.9%
+              - row "Harris-Benedict Revised 1984 1696 kcal/dzień +41 kcal +2.5%" [ref=e336]:
+                - cell "Harris-Benedict Revised 1984" [ref=e337]:
+                  - generic [ref=e339]:
+                    - paragraph [ref=e340]: Harris-Benedict Revised
+                    - paragraph [ref=e341]: "1984"
+                - cell "1696 kcal/dzień" [ref=e342]:
+                  - paragraph [ref=e344]: 1696 kcal/dzień
+                - cell "+41 kcal +2.5%" [ref=e345]:
+                  - generic [ref=e346]:
+                    - paragraph [ref=e347]: +41 kcal
+                    - paragraph [ref=e348]: +2.5%
+              - row "Mifflin-St Jeor 1990 1649 kcal/dzień -6 kcal -0.4%" [ref=e349]:
+                - cell "Mifflin-St Jeor 1990" [ref=e350]:
+                  - generic [ref=e352]:
+                    - paragraph [ref=e353]: Mifflin-St Jeor
+                    - paragraph [ref=e354]: "1990"
+                - cell "1649 kcal/dzień" [ref=e355]:
+                  - paragraph [ref=e357]: 1649 kcal/dzień
+                - cell "-6 kcal -0.4%" [ref=e358]:
+                  - generic [ref=e359]:
+                    - paragraph [ref=e360]: "-6 kcal"
+                    - paragraph [ref=e361]: "-0.4%"
+              - row "Katch-McArdle 1996• wymaga % tkanki tłuszczowej Brak danych —" [ref=e362]:
+                - cell "Katch-McArdle 1996• wymaga % tkanki tłuszczowej" [ref=e363]:
+                  - generic [ref=e365]:
+                    - paragraph [ref=e366]: Katch-McArdle
+                    - paragraph [ref=e367]: 1996• wymaga % tkanki tłuszczowej
+                - cell "Brak danych" [ref=e368]
+                - cell "—" [ref=e369]
+              - row "Cunningham 1980• wymaga % tkanki tłuszczowej Brak danych —" [ref=e370]:
+                - cell "Cunningham 1980• wymaga % tkanki tłuszczowej" [ref=e371]:
+                  - generic [ref=e373]:
+                    - paragraph [ref=e374]: Cunningham
+                    - paragraph [ref=e375]: 1980• wymaga % tkanki tłuszczowej
+                - cell "Brak danych" [ref=e376]
+                - cell "—" [ref=e377]
+              - row "Owen 1986/1987 1593 kcal/dzień -62 kcal -3.7%" [ref=e378]:
+                - cell "Owen 1986/1987" [ref=e379]:
+                  - generic [ref=e381]:
+                    - paragraph [ref=e382]: Owen
+                    - paragraph [ref=e383]: 1986/1987
+                - cell "1593 kcal/dzień" [ref=e384]:
+                  - paragraph [ref=e386]: 1593 kcal/dzień
+                - cell "-62 kcal -3.7%" [ref=e387]:
+                  - generic [ref=e388]:
+                    - paragraph [ref=e389]: "-62 kcal"
+                    - paragraph [ref=e390]: "-3.7%"
+              - row "Schofield/WHO 1985 1676 kcal/dzień +22 kcal +1.3%" [ref=e391]:
+                - cell "Schofield/WHO 1985" [ref=e392]:
+                  - generic [ref=e394]:
+                    - paragraph [ref=e395]: Schofield/WHO
+                    - paragraph [ref=e396]: "1985"
+                - cell "1676 kcal/dzień" [ref=e397]:
+                  - paragraph [ref=e399]: 1676 kcal/dzień
+                - cell "+22 kcal +1.3%" [ref=e400]:
+                  - generic [ref=e401]:
+                    - paragraph [ref=e402]: +22 kcal
+                    - paragraph [ref=e403]: +1.3%
+              - row "Henry/Oxford 2005 1608 kcal/dzień -47 kcal -2.8%" [ref=e404]:
+                - cell "Henry/Oxford 2005" [ref=e405]:
+                  - generic [ref=e407]:
+                    - paragraph [ref=e408]: Henry/Oxford
+                    - paragraph [ref=e409]: "2005"
+                - cell "1608 kcal/dzień" [ref=e410]:
+                  - paragraph [ref=e412]: 1608 kcal/dzień
+                - cell "-47 kcal -2.8%" [ref=e413]:
+                  - generic [ref=e414]:
+                    - paragraph [ref=e415]: "-47 kcal"
+                    - paragraph [ref=e416]: "-2.8%"
+              - row "Müller 2004 1871 kcal/dzień Najwyższy +217 kcal +13.1%" [ref=e417]:
+                - cell "Müller 2004" [ref=e418]:
+                  - generic [ref=e420]:
+                    - paragraph [ref=e421]: Müller
+                    - paragraph [ref=e422]: "2004"
+                - cell "1871 kcal/dzień Najwyższy" [ref=e423]:
+                  - generic [ref=e424]:
+                    - paragraph [ref=e425]: 1871 kcal/dzień
+                    - paragraph [ref=e426]:
+                      - img [ref=e427]
+                      - text: Najwyższy
+                - cell "+217 kcal +13.1%" [ref=e430]:
+                  - generic [ref=e431]:
+                    - paragraph [ref=e432]: +217 kcal
+                    - paragraph [ref=e433]: +13.1%
+              - row "Livingston-Kohlstadt 2005 1844 kcal/dzień +190 kcal +11.5%" [ref=e434]:
+                - cell "Livingston-Kohlstadt 2005" [ref=e435]:
+                  - generic [ref=e437]:
+                    - paragraph [ref=e438]: Livingston-Kohlstadt
+                    - paragraph [ref=e439]: "2005"
+                - cell "1844 kcal/dzień" [ref=e440]:
+                  - paragraph [ref=e442]: 1844 kcal/dzień
+                - cell "+190 kcal +11.5%" [ref=e443]:
+                  - generic [ref=e444]:
+                    - paragraph [ref=e445]: +190 kcal
+                    - paragraph [ref=e446]: +11.5%
+              - row "Bernstein 1983 1252 kcal/dzień Najniższy -402 kcal -24.3%" [ref=e447]:
+                - cell "Bernstein 1983" [ref=e448]:
+                  - generic [ref=e450]:
+                    - paragraph [ref=e451]: Bernstein
+                    - paragraph [ref=e452]: "1983"
+                - cell "1252 kcal/dzień Najniższy" [ref=e453]:
+                  - generic [ref=e454]:
+                    - paragraph [ref=e455]: 1252 kcal/dzień
+                    - paragraph [ref=e456]:
+                      - img [ref=e457]
+                      - text: Najniższy
+                - cell "-402 kcal -24.3%" [ref=e460]:
+                  - generic [ref=e461]:
+                    - paragraph [ref=e462]: "-402 kcal"
+                    - paragraph [ref=e463]: "-24.3%"
+          - generic [ref=e464]:
+            - generic [ref=e465]:
+              - generic [ref=e468]: "Najniższy: 1252 kcal"
+              - generic [ref=e471]: "Najwyższy: 1871 kcal"
+            - generic [ref=e472]: "Rozstęp: 619 kcal"
+          - generic [ref=e473]:
+            - paragraph [ref=e474]: "Niedostępne modele:"
+            - paragraph [ref=e475]:
+              - text: Modele
+              - strong [ref=e476]: Katch-McArdle
+              - text: i
+              - strong [ref=e477]: Cunningham
+              - text: wymagają estymacji % tkanki tłuszczowej. Uzupełnij dane w sekcji "Estymacja tkanki tłuszczowej" aby je obliczyć.
+        - generic [ref=e478]:
+          - generic [ref=e479]:
+            - img [ref=e480]
+            - heading "TDEE - Całkowite Dzienne Zapotrzebowanie Energetyczne" [level=2] [ref=e482]
+          - paragraph [ref=e483]: Wybierz poziom aktywności fizycznej, aby obliczyć TDEE (BMR × współczynnik aktywności)
+          - generic [ref=e484]:
+            - 'button "Siedzący tryb życia ×1.2 Brak regularnych ćwiczeń, praca biurowa Przykład: Praca przy biurku 8h dziennie, wieczorem oglądanie TV, brak aktywności fizycznej" [ref=e485]':
+              - generic [ref=e486]:
+                - generic [ref=e487]:
+                  - generic [ref=e488]:
+                    - heading "Siedzący tryb życia" [level=3] [ref=e489]
+                    - generic [ref=e490]: ×1.2
+                  - paragraph [ref=e491]: Brak regularnych ćwiczeń, praca biurowa
+                  - paragraph [ref=e492]: "Przykład: Praca przy biurku 8h dziennie, wieczorem oglądanie TV, brak aktywności fizycznej"
+                - img [ref=e495]
+            - 'button "Lekko aktywny ×1.375 Lekkie ćwiczenia 1-3 dni w tygodniu Przykład: Spacery 30 min dziennie, 1-2 lekkie treningi w tygodniu (joga, stretching)" [ref=e497]':
+              - generic [ref=e499]:
+                - generic [ref=e500]:
+                  - heading "Lekko aktywny" [level=3] [ref=e501]
+                  - generic [ref=e502]: ×1.375
+                - paragraph [ref=e503]: Lekkie ćwiczenia 1-3 dni w tygodniu
+                - paragraph [ref=e504]: "Przykład: Spacery 30 min dziennie, 1-2 lekkie treningi w tygodniu (joga, stretching)"
+            - 'button "Umiarkowanie aktywny ×1.55 Umiarkowane ćwiczenia 3-5 dni w tygodniu Przykład: 2-3× trening siłowy tygodniowo + 1-2× cardio (bieganie, rower)" [ref=e505]':
+              - generic [ref=e507]:
+                - generic [ref=e508]:
+                  - heading "Umiarkowanie aktywny" [level=3] [ref=e509]
+                  - generic [ref=e510]: ×1.55
+                - paragraph [ref=e511]: Umiarkowane ćwiczenia 3-5 dni w tygodniu
+                - paragraph [ref=e512]: "Przykład: 2-3× trening siłowy tygodniowo + 1-2× cardio (bieganie, rower)"
+            - 'button "Bardzo aktywny ×1.725 Intensywne ćwiczenia 6-7 dni w tygodniu Przykład: Codzienny trening, praca fizyczna, aktywny tryb życia" [ref=e513]':
+              - generic [ref=e515]:
+                - generic [ref=e516]:
+                  - heading "Bardzo aktywny" [level=3] [ref=e517]
+                  - generic [ref=e518]: ×1.725
+                - paragraph [ref=e519]: Intensywne ćwiczenia 6-7 dni w tygodniu
+                - paragraph [ref=e520]: "Przykład: Codzienny trening, praca fizyczna, aktywny tryb życia"
+            - 'button "Ekstremalnie aktywny ×1.9 Bardzo intensywny trening + praca fizyczna Przykład: Zawodowy sportowiec, 2 treningi dziennie, bardzo ciężka praca fizyczna" [ref=e521]':
+              - generic [ref=e523]:
+                - generic [ref=e524]:
+                  - heading "Ekstremalnie aktywny" [level=3] [ref=e525]
+                  - generic [ref=e526]: ×1.9
+                - paragraph [ref=e527]: Bardzo intensywny trening + praca fizyczna
+                - paragraph [ref=e528]: "Przykład: Zawodowy sportowiec, 2 treningi dziennie, bardzo ciężka praca fizyczna"
+          - generic [ref=e529]:
+            - generic [ref=e530]:
+              - img [ref=e532]
+              - generic [ref=e534]:
+                - paragraph [ref=e535]: Twoje TDEE
+                - paragraph [ref=e536]: Siedzący tryb życia (×1.2)
+            - generic [ref=e537]:
+              - paragraph [ref=e538]: "1985"
+              - paragraph [ref=e539]: kcal/dzień
+            - generic [ref=e540]:
+              - paragraph [ref=e541]: "Cele kaloryczne:"
+              - generic [ref=e542]:
+                - generic [ref=e543]:
+                  - text: "Utrzymanie wagi:"
+                  - generic [ref=e544]: 1985 kcal
+                - generic [ref=e545]:
+                  - text: "Redukcja:"
+                  - generic [ref=e546]: 1485 kcal
+                - generic [ref=e547]:
+                  - text: "Masa:"
+                  - generic [ref=e548]: 2285 kcal
+                - generic [ref=e549]:
+                  - text: "Szybka redukcja:"
+                  - generic [ref=e550]: 1235 kcal
+          - paragraph [ref=e552]:
+            - strong [ref=e553]: TDEE (Total Daily Energy Expenditure)
+            - text: to całkowita ilość kalorii, którą spalasz w ciągu dnia, uwzględniając podstawową przemianę materii (BMR) oraz aktywność fizyczną.
+        - generic [ref=e554]:
+          - generic [ref=e555]:
+            - img [ref=e556]
+            - heading "Makroskładniki" [level=2] [ref=e559]
+          - generic [ref=e560]:
+            - generic [ref=e561]:
+              - generic [ref=e562]: Cel
+              - combobox "Cel" [ref=e563]:
+                - option "Redukcja" [selected]
+                - option "Utrzymanie"
+                - option "Masa"
+                - option "Rekomponizycja"
+            - generic [ref=e564]:
+              - generic [ref=e565]: Strategia
+              - combobox "Strategia" [ref=e566]:
+                - option "Zrównoważona (30/40/30)"
+                - option "Wysokobiałkowa (40/30/30)"
+                - option "Zdrowe odchudzanie (2.2g/kg LBM)" [selected]
+                - option "Ketogeniczna (25/5/70)"
+                - option "Niskowęglowodanowa (35/25/40)"
+                - option "Niskotłuszczowa (30/55/15)"
+            - generic [ref=e567]:
+              - generic [ref=e568]: Posiłków/dzień
+              - generic [ref=e569]:
+                - button "3" [ref=e570]
+                - button "4" [active] [ref=e571]
+                - button "5" [ref=e572]
+                - button "6" [ref=e573]
+          - generic [ref=e574]:
+            - generic [ref=e575]:
+              - generic [ref=e576]:
+                - generic [ref=e577]: Białko
+                - generic [ref=e578]:
+                  - generic [ref=e579]: 116g
+                  - generic [ref=e580]: (462 kcal)
+                  - generic [ref=e581]: • 23%
+              - generic [ref=e583]: "Na posiłek: ~29g"
+            - generic [ref=e584]:
+              - generic [ref=e585]:
+                - generic [ref=e586]: Węglowodany
+                - generic [ref=e587]:
+                  - generic [ref=e588]: 152g
+                  - generic [ref=e589]: (609 kcal)
+                  - generic [ref=e590]: • 31%
+              - generic [ref=e592]: "Na posiłek: ~38g"
+            - generic [ref=e593]:
+              - generic [ref=e594]:
+                - generic [ref=e595]: Tłuszcze
+                - generic [ref=e596]:
+                  - generic [ref=e597]: 102g
+                  - generic [ref=e598]: (914 kcal)
+                  - generic [ref=e599]: • 46%
+              - generic [ref=e601]: "Na posiłek: ~26g"
+          - generic [ref=e603]:
+            - generic [ref=e604]:
+              - paragraph [ref=e605]: Cel
+              - paragraph [ref=e606]: Redukcja
+            - generic [ref=e607]:
+              - paragraph [ref=e608]: Strategia
+              - paragraph [ref=e609]: Zdrowe odchudzanie (2.2g/kg LBM)
+            - generic [ref=e610]:
+              - paragraph [ref=e611]: TDEE
+              - paragraph [ref=e612]: 1985 kcal
+            - generic [ref=e613]:
+              - paragraph [ref=e614]: Posiłków
+              - paragraph [ref=e615]: 4/dzień
+        - generic [ref=e108]:
+          - generic [ref=e109]:
+            - img [ref=e110]
+            - heading "BMI - Wskaźnik Masy Ciała" [level=2] [ref=e114]
+          - generic [ref=e115]:
+            - generic [ref=e116]:
+              - generic [ref=e117]:
+                - paragraph [ref=e118]: Twoje BMI
+                - generic [ref=e119]:
+                  - generic [ref=e120]: "22.9"
+                  - generic [ref=e121]: kg/m²
+              - paragraph [ref=e123]: Norma
+            - paragraph [ref=e124]: Zdrowy zakres BMI
+          - generic [ref=e125]:
+            - paragraph [ref=e126]: Skala BMI
+            - generic [ref=e127]:
+              - generic [ref=e128]:
+                - generic "Niedowaga" [ref=e129]
+                - generic "Norma" [ref=e130]
+                - generic "Nadwaga" [ref=e131]
+                - generic "Otyłość I°" [ref=e132]
+                - generic "Otyłość II°" [ref=e133]
+                - generic "Otyłość III°" [ref=e134]
+              - generic [ref=e136]: "22.9"
+            - generic [ref=e137]:
+              - generic [ref=e138]: "15"
+              - generic [ref=e139]: "18.5"
+              - generic [ref=e140]: "25"
+              - generic [ref=e141]: "30"
+              - generic [ref=e142]: "35"
+              - generic [ref=e143]: 40+
+            - generic [ref=e144]:
+              - generic [ref=e145]: Niedowaga
+              - generic [ref=e146]: Norma
+              - generic [ref=e147]: Nadwaga
+              - generic [ref=e148]: Otyłość I°
+              - generic [ref=e149]: Otyłość II°
+              - generic [ref=e150]: Otyłość III°
+          - generic [ref=e152]:
+            - img [ref=e155]
+            - generic [ref=e159]:
+              - paragraph [ref=e160]: Zdrowy zakres wagi dla Twojego wzrostu
+              - paragraph [ref=e161]: "Wzrost: 175 cm"
+              - generic [ref=e162]:
+                - generic [ref=e163]: 56.7 - 76.3
+                - generic [ref=e164]: kg
+              - paragraph [ref=e165]: Zakres odpowiadający BMI 18.5-24.9 (zdrowa norma WHO)
+          - generic [ref=e166]:
+            - paragraph [ref=e167]: "Klasyfikacja WHO:"
+            - generic [ref=e168]:
+              - generic [ref=e169]:
+                - generic [ref=e170]: Niedowaga
+                - generic [ref=e171]: < 18.5
+              - generic [ref=e172]:
+                - generic [ref=e173]: Norma
+                - generic [ref=e174]: 18.5 - 24.9
+              - generic [ref=e175]:
+                - generic [ref=e176]: Nadwaga
+                - generic [ref=e177]: 25.0 - 29.9
+              - generic [ref=e178]:
+                - generic [ref=e179]: Otyłość I°
+                - generic [ref=e180]: 30.0 - 34.9
+              - generic [ref=e181]:
+                - generic [ref=e182]: Otyłość II°
+                - generic [ref=e183]: 35.0 - 39.9
+              - generic [ref=e184]:
+                - generic [ref=e185]: Otyłość III° (skrajna)
+                - generic [ref=e186]: ≥ 40.0
+          - paragraph [ref=e188]:
+            - strong [ref=e189]: "Uwaga:"
+            - text: BMI jest narzędziem przesiewowym i nie uwzględnia składu ciała (masy mięśniowej vs. tkanki tłuszczowej). Sportowcy i osoby z dużą masą mięśniową mogą mieć podwyższone BMI przy niskim poziomie tkanki tłuszczowej.
+        - generic [ref=e190]:
+          - generic [ref=e191]:
+            - generic [ref=e192]:
+              - img [ref=e193]
+              - heading "Skład ciała - LBM i FFM" [level=2] [ref=e195]
+            - button "Sortuj" [ref=e196]:
+              - img [ref=e197]
+              - generic [ref=e200]: Sortuj
+          - generic [ref=e202]:
+            - img [ref=e203]
+            - generic [ref=e205]:
+              - paragraph [ref=e206]: FFM wymaga % tkanki tłuszczowej
+              - paragraph [ref=e207]: Uzupełnij dane w sekcji "Estymacja tkanki tłuszczowej" aby obliczyć FFM (Fat-Free Mass) - najdokładniejszy wskaźnik masy beztłuszczowej oparty na rzeczywistym pomiarze % tłuszczu.
+          - generic [ref=e209]:
+            - generic [ref=e210]:
+              - paragraph [ref=e211]: Średnia LBM (Lean Body Mass)
+              - paragraph [ref=e212]: Średnia z 3 formuł estymacji
+            - generic [ref=e213]:
+              - paragraph [ref=e214]: "55.1"
+              - paragraph [ref=e215]: kg (78.7% masy ciała)
+          - table [ref=e217]:
+            - rowgroup [ref=e218]:
+              - row "Formuła LBM Odchylenie" [ref=e219]:
+                - columnheader "Formuła" [ref=e220]
+                - columnheader "LBM" [ref=e221]
+                - columnheader "Odchylenie" [ref=e222]
+            - rowgroup [ref=e223]:
+              - row "Boer 1984 56.0 kg 80.0% masy ciała +0.9 kg +1.6%" [ref=e224]:
+                - cell "Boer 1984" [ref=e225]:
+                  - generic [ref=e226]:
+                    - paragraph [ref=e227]: Boer
+                    - paragraph [ref=e228]: "1984"
+                - cell "56.0 kg 80.0% masy ciała" [ref=e229]:
+                  - generic [ref=e230]:
+                    - paragraph [ref=e231]: 56.0 kg
+                    - paragraph [ref=e232]: 80.0% masy ciała
+                - cell "+0.9 kg +1.6%" [ref=e233]:
+                  - generic [ref=e234]:
+                    - paragraph [ref=e235]: +0.9 kg
+                    - paragraph [ref=e236]: +1.6%
+              - row "James 1976 56.5 kg 80.7% masy ciała Najwyższy +1.4 kg +2.5%" [ref=e237]:
+                - cell "James 1976" [ref=e238]:
+                  - generic [ref=e239]:
+                    - paragraph [ref=e240]: James
+                    - paragraph [ref=e241]: "1976"
+                - cell "56.5 kg 80.7% masy ciała Najwyższy" [ref=e242]:
+                  - generic [ref=e243]:
+                    - paragraph [ref=e244]: 56.5 kg
+                    - paragraph [ref=e245]: 80.7% masy ciała
+                    - paragraph [ref=e246]:
+                      - img [ref=e247]
+                      - text: Najwyższy
+                - cell "+1.4 kg +2.5%" [ref=e250]:
+                  - generic [ref=e251]:
+                    - paragraph [ref=e252]: +1.4 kg
+                    - paragraph [ref=e253]: +2.5%
+              - row "Hume 1966 52.8 kg 75.4% masy ciała Najniższy -2.3 kg -4.2%" [ref=e254]:
+                - cell "Hume 1966" [ref=e255]:
+                  - generic [ref=e256]:
+                    - paragraph [ref=e257]: Hume
+                    - paragraph [ref=e258]: "1966"
+                - cell "52.8 kg 75.4% masy ciała Najniższy" [ref=e259]:
+                  - generic [ref=e260]:
+                    - paragraph [ref=e261]: 52.8 kg
+                    - paragraph [ref=e262]: 75.4% masy ciała
+                    - paragraph [ref=e263]:
+                      - img [ref=e264]
+                      - text: Najniższy
+                - cell "-2.3 kg -4.2%" [ref=e267]:
+                  - generic [ref=e268]:
+                    - paragraph [ref=e269]: "-2.3 kg"
+                    - paragraph [ref=e270]: "-4.2%"
+          - generic [ref=e271]:
+            - generic [ref=e272]:
+              - generic [ref=e275]: "Najniższy: 52.8 kg"
+              - generic [ref=e278]: "Najwyższy: 56.5 kg"
+            - generic [ref=e279]: "Rozstęp: 3.7 kg"
+          - generic [ref=e280]:
+            - paragraph [ref=e281]: "Formuły LBM:"
+            - generic [ref=e282]:
+              - generic [ref=e283]:
+                - paragraph [ref=e284]: Boer (1984)
+                - paragraph [ref=e285]: LBM = 0.407 × waga + 0.267 × wzrost - 19.2
+              - generic [ref=e286]:
+                - paragraph [ref=e287]: James (1976)
+                - paragraph [ref=e288]: LBM = 1.10 × waga - 128 × (waga/wzrost)²
+              - generic [ref=e289]:
+                - paragraph [ref=e290]: Hume (1966)
+                - paragraph [ref=e291]: LBM = 0.328 × waga + 0.339 × wzrost - 29.5
+          - paragraph [ref=e293]:
+            - strong [ref=e294]: "Uwaga:"
+            - text: LBM (Lean Body Mass) to estymacja masy beztłuszczowej oparta tylko na wadze i wzroście. FFM (Fat-Free Mass) obliczane z % tkanki tłuszczowej jest dokładniejsze. LBM może nie uwzględniać wszystkich składników masy beztłuszczowej (np. glikogen, woda).
+        - generic [ref=e95]:
+          - generic [ref=e96]:
+            - img [ref=e97]
+            - heading "FFMI - Wskaźnik Masy Beztłuszczowej" [level=2] [ref=e100]
+          - generic [ref=e101]:
+            - img [ref=e103]
+            - paragraph [ref=e106]: FFMI wymaga % tkanki tłuszczowej
+            - paragraph [ref=e107]: Uzupełnij dane w sekcji "Estymacja tkanki tłuszczowej" aby obliczyć FFMI - wskaźnik pozwalający ocenić masę mięśniową niezależnie od wzrostu i tkanki tłuszczowej.
+        - generic [ref=e616]:
+          - generic [ref=e617]:
+            - heading "Zaawansowane wskaźniki metaboliczne" [level=2] [ref=e618]
+            - paragraph [ref=e619]: Szczegółowa analiza składu ciała i metabolizmu
+          - generic [ref=e620]:
+            - generic [ref=e621]:
+              - generic [ref=e622]:
+                - heading "SMM (Skeletal Muscle Mass)" [level=3] [ref=e623]
+                - generic [ref=e624]: 34.4 kg
+              - generic [ref=e625]:
+                - generic [ref=e626]:
+                  - text: "Procent masy ciała:"
+                  - generic [ref=e627]: 49.1%
+                - generic [ref=e629]: Wysoka
+              - paragraph [ref=e630]: Masa mięśni szkieletowych - wskaźnik potencjału siłowego i sprawności fizycznej
+            - generic [ref=e631]:
+              - generic [ref=e632]:
+                - heading "TBW (Total Body Water)" [level=3] [ref=e633]
+                - generic [ref=e634]: 41.9 L
+              - generic [ref=e635]:
+                - generic [ref=e636]:
+                  - text: "Procent masy ciała:"
+                  - generic [ref=e637]: 59.9%
+                - generic [ref=e639]: Prawidłowa
+              - paragraph [ref=e640]: Całkowita zawartość wody w organizmie - kluczowa dla prawidłowego funkcjonowania
+              - paragraph [ref=e642]:
+                - strong [ref=e643]: "Normy TBW:"
+                - text: "Mężczyźni: 55-65% masy ciała"
+            - generic [ref=e644]:
+              - generic [ref=e645]:
+                - heading "Wiek Metaboliczny" [level=3] [ref=e646]
+                - generic [ref=e648]: 30 lat
+              - generic [ref=e649]:
+                - generic [ref=e650]:
+                  - generic [ref=e651]: "Wiek rzeczywisty:"
+                  - generic [ref=e652]: 30 lat
+                - generic [ref=e654]: Przeciętny
+              - paragraph [ref=e655]: Twój metabolizm odpowiada Twojemu wiekowi
+              - paragraph [ref=e657]: Wiek metaboliczny pokazuje, jak sprawny jest Twój metabolizm w porównaniu do przeciętnej osoby w Twoim wieku.
+          - paragraph [ref=e659]:
+            - strong [ref=e660]: "Uwaga:"
+            - text: Wszystkie wskaźniki są szacunkowe i służą celom informacyjnym. Dodaj obwód talii, aby zobaczyć poziom tłuszczu trzewnego. Dla pełnej oceny zdrowia skonsultuj się z lekarzem lub dietetykiem.
+        - generic [ref=e661]:
+          - generic [ref=e662]:
+            - img [ref=e663]
+            - heading "Eksport do PDF" [level=2] [ref=e667]
+          - paragraph [ref=e668]: Wygeneruj profesjonalny raport PDF ze wszystkimi obliczeniami i wynikami.
+          - generic [ref=e669]:
+            - generic [ref=e670]: Imię i nazwisko klienta (opcjonalne)
+            - generic [ref=e671]:
+              - generic:
+                - img
+              - textbox "Imię i nazwisko klienta (opcjonalne)" [ref=e672]:
+                - /placeholder: Jan Kowalski
+          - button "Eksportuj do PDF" [ref=e673]:
+            - img [ref=e674]
+            - text: Eksportuj do PDF
+          - generic [ref=e678]:
+            - paragraph [ref=e679]: "Raport będzie zawierał:"
+            - list [ref=e680]:
+              - listitem [ref=e681]: Dane wejściowe klienta
+              - listitem [ref=e682]: Wyniki wszystkich 11 modeli BMR
+              - listitem [ref=e683]: Wartość TDEE z wybranym poziomem aktywności
+              - listitem [ref=e684]: BMI z kategorią i zdrowym zakresem wagi
+              - listitem [ref=e685]: Datę wygenerowania raportu
+          - paragraph [ref=e686]: Plik zostanie automatycznie pobrany po wygenerowaniu
+  - contentinfo [ref=e90]:
+    - generic [ref=e91]:
+      - paragraph [ref=e92]:
+        - strong [ref=e93]: BodyMetrics Pro
+        - text: "- Advanced Body Composition & Metabolism Calculator"
+      - paragraph [ref=e94]: 11 formuł BMR • 4 metody estymacji BF% • 15+ wskaźników składu ciała

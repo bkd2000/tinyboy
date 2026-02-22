@@ -7,18 +7,18 @@ import { TDEESection } from './components/TDEESection';
 import { BMISection } from './components/BMISection';
 import { WHRSection } from './components/WHRSection';
 import { WHtRSection } from './components/WHtRSection';
-import { BAISection } from './components/BAISection';
 import { BodyCompositionSection } from './components/BodyCompositionSection';
 import { FFMISection } from './components/FFMISection';
+import { AdvancedBodyMetricsSection } from './components/AdvancedBodyMetricsSection';
 import { MacroCalculator } from './components/MacroCalculator';
 import { PDFExport } from './components/PDFExport';
 import { calculateAllBMR } from './utils/bmrModels';
 import { getBMIData } from './utils/bmi';
 import { getWHRData } from './utils/whr';
 import { getWHtRData } from './utils/whtr';
-import { getBAIData } from './utils/bai';
 import { getBodyCompositionData } from './utils/bodyComposition';
 import { getFFMIData } from './utils/ffmi';
+import { getAdvancedBodyMetricsData } from './utils/advancedBodyMetrics';
 import { calculateTDEE } from './utils/tdee';
 import { ACTIVITY_LEVELS } from './constants/formulas';
 
@@ -62,12 +62,6 @@ function App() {
     return getWHtRData(formData.waistCircumference, formData.height);
   }, [formData.waistCircumference, formData.height]);
 
-  // Calculate BAI when hip/height/gender changes
-  const baiData = useMemo(() => {
-    if (!formData.hipCircumference || !formData.height || !formData.gender) return null;
-    return getBAIData(formData.hipCircumference, formData.height, formData.gender);
-  }, [formData.hipCircumference, formData.height, formData.gender]);
-
   // Calculate Body Composition (LBM + FFM) when weight/height/gender/bodyFat changes
   const bodyCompositionData = useMemo(() => {
     if (!formData.weight || !formData.height || !formData.gender) return null;
@@ -84,6 +78,23 @@ function App() {
     if (!bodyCompositionData?.ffm || !formData.height || !formData.gender) return null;
     return getFFMIData(bodyCompositionData.ffm.ffm, formData.height, formData.gender);
   }, [bodyCompositionData, formData.height, formData.gender]);
+
+  // Calculate Advanced Body Metrics (SMM, TBW, Metabolic Age, Visceral Fat)
+  const advancedMetricsData = useMemo(() => {
+    if (!formData.weight || !formData.height || !formData.age || !formData.gender || !bmrResults || !bmiData) return null;
+    const lbm = bodyCompositionData?.lbm.average ?? 0;
+    return getAdvancedBodyMetricsData(
+      formData.weight,
+      formData.height,
+      formData.age,
+      formData.gender,
+      bmrResults.average,
+      bmiData.value,
+      lbm,
+      bodyFatPercentage,
+      formData.waistCircumference
+    );
+  }, [formData.weight, formData.height, formData.age, formData.gender, bmrResults, bmiData, bodyCompositionData, bodyFatPercentage, formData.waistCircumference]);
 
   // Calculate TDEE
   const tdee = useMemo(() => {
@@ -105,12 +116,28 @@ function App() {
       {/* Header */}
       <header className="bg-white shadow-sm border-b border-gray-200">
         <div className="max-w-7xl mx-auto px-4 py-6">
-          <h1 className="text-3xl font-bold text-primary">
-            Kalkulator BMR
-          </h1>
-          <p className="mt-1 text-sm text-gray-600">
-            Profesjonalny kalkulator podstawowej przemiany materii
-          </p>
+          <div className="flex items-center justify-between">
+            <div>
+              <h1 className="text-3xl font-bold text-primary">
+                BodyMetrics Pro
+              </h1>
+              <p className="mt-1 text-sm text-gray-600">
+                Wszystko czego potrzebujesz do profesjonalnej oceny składu ciała
+              </p>
+            </div>
+            <div className="flex items-center gap-6">
+              <img
+                src="/logos/instytut-dietcoachingu.jpg"
+                alt="Instytut Dietcoachingu"
+                className="h-16 object-contain"
+              />
+              <img
+                src="/logos/poradnia.jpg"
+                alt="Poradnia Odchudzania i Odżywiania"
+                className="h-16 object-contain"
+              />
+            </div>
+          </div>
         </div>
       </header>
 
@@ -182,15 +209,6 @@ function App() {
               <WHtRSection whtr={whtrData} height={formData.height} />
             )}
 
-            {baiData && formData.gender && formData.hipCircumference && formData.height && (
-              <BAISection
-                bai={baiData}
-                gender={formData.gender}
-                hipCircumference={formData.hipCircumference}
-                height={formData.height}
-              />
-            )}
-
             {bodyCompositionData && formData.gender && (
               <BodyCompositionSection
                 bodyComposition={bodyCompositionData}
@@ -201,6 +219,13 @@ function App() {
             {formData.gender && (
               <FFMISection
                 ffmi={ffmiData ?? undefined}
+                gender={formData.gender}
+              />
+            )}
+
+            {advancedMetricsData && formData.gender && (
+              <AdvancedBodyMetricsSection
+                metrics={advancedMetricsData}
                 gender={formData.gender}
               />
             )}
@@ -222,6 +247,11 @@ function App() {
                 tdee={tdee}
                 activityLevel={selectedActivityLevel!}
                 bmiData={bmiData}
+                whrData={whrData}
+                whtrData={whtrData}
+                bodyCompositionData={bodyCompositionData}
+                ffmiData={ffmiData}
+                advancedMetricsData={advancedMetricsData}
               />
             )}
           </div>
@@ -232,7 +262,10 @@ function App() {
       <footer className="bg-white border-t border-gray-200 mt-12">
         <div className="max-w-7xl mx-auto px-4 py-6">
           <p className="text-sm text-gray-500 text-center">
-            Kalkulator BMR - Wskaźniki składu ciała: LBM, FFM, FFMI ✓
+            <strong>BodyMetrics Pro</strong> - Advanced Body Composition & Metabolism Calculator
+          </p>
+          <p className="text-xs text-gray-400 text-center mt-1">
+            11 formuł BMR • 4 metody estymacji BF% • 15+ wskaźników składu ciała
           </p>
         </div>
       </footer>
