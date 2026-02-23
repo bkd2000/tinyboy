@@ -92,11 +92,11 @@ function getMacroRatios(
     const proteinCalories = proteinGrams * 4;
     const proteinRatio = proteinCalories / tdee;
 
-    // Remaining calories split between carbs and fats
-    // Default: 40% carbs, 60% fats of remaining calories
+    // Remaining calories split between carbs and fats in 20:50 ratio
+    // Fats: 20% of remaining, Carbs: 50% of remaining
     const remainingRatio = 1 - proteinRatio;
-    const carbsRatio = remainingRatio * 0.40;
-    const fatsRatio = remainingRatio * 0.60;
+    const fatsRatio = remainingRatio * (20 / 70);   // 20/(20+50) = 20/70
+    const carbsRatio = remainingRatio * (50 / 70);   // 50/(20+50) = 50/70
 
     return {
       protein: Math.min(proteinRatio, 0.50), // Cap at 50% to ensure balance
