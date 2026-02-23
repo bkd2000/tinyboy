@@ -76,6 +76,49 @@ export function BodyFatEstimator({ formData, value, onChange }: BodyFatEstimator
 
         const bodyFat = calculateBAI(formData.hipCircumference, formData.height);
         onChange(bodyFat);
+      } else if (method === 'weighted-average') {
+        // Weighted average: BAI 50%, US Navy 25%, Deurenberg 25%
+        // Note: Manual input is NOT included (only automatic measurement methods)
+        const methods: Array<{ value: number | null; weight: number }> = [];
+
+        // BAI - 50% weight
+        if (formData.hipCircumference && formData.height) {
+          const baiFat = calculateBAI(formData.hipCircumference, formData.height);
+          methods.push({ value: baiFat, weight: 0.5 });
+        }
+
+        // US Navy - 25% weight
+        if (canCalculateNavy() && formData.height && formData.gender) {
+          const navyFat = estimateBodyFatUSNavy({
+            height: formData.height,
+            neck: formData.neckCircumference!,
+            waist: formData.waistCircumference!,
+            hip: formData.hipCircumference,
+            gender: formData.gender,
+          });
+          methods.push({ value: navyFat, weight: 0.25 });
+        }
+
+        // Deurenberg - 25% weight
+        if (formData.weight && formData.height && formData.age && formData.gender) {
+          const bmi = calculateBMI(formData.weight, formData.height);
+          const deurenbergFat = estimateBodyFatDeurenberg({
+            bmi,
+            age: formData.age,
+            gender: formData.gender,
+          });
+          methods.push({ value: deurenbergFat, weight: 0.25 });
+        }
+
+        // Calculate weighted average (normalize weights if not all methods available)
+        if (methods.length > 0) {
+          const totalWeight = methods.reduce((sum, m) => sum + m.weight, 0);
+          const weightedSum = methods.reduce((sum, m) => sum + (m.value! * m.weight), 0);
+          const weightedAverage = weightedSum / totalWeight;
+          onChange(weightedAverage);
+        } else {
+          onChange(undefined);
+        }
       }
     } catch (error) {
       console.error('Body fat calculation error:', error);
@@ -106,6 +149,11 @@ export function BodyFatEstimator({ formData, value, onChange }: BodyFatEstimator
 
   const canCalculateBAI = () => {
     return !!(formData.hipCircumference && formData.height);
+  };
+
+  const canCalculateWeightedAverage = () => {
+    // Need at least BAI (50% weight) to make sense
+    return canCalculateBAI();
   };
 
   const bodyFatCategory = value && formData.gender
@@ -223,6 +271,31 @@ export function BodyFatEstimator({ formData, value, onChange }: BodyFatEstimator
               Obliczenie na podstawie obwodu bioder i wzrostu
             </div>
           </button>
+
+          {/* Weighted Average */}
+          <button
+            type="button"
+            onClick={() => handleMethodChange('weighted-average')}
+            className={`
+              w-full text-left p-3 rounded-lg border-2 transition-all
+              ${method === 'weighted-average'
+                ? 'border-blue-700 border-4 bg-white'
+                : 'border-gray-200 hover:border-gray-300 bg-white'
+              }
+            `}
+          >
+            <div className="flex items-center justify-between">
+              <div className="font-medium text-gray-900">Średnia ważona z wszystkich metod</div>
+              {!canCalculateWeightedAverage() && (
+                <span className="text-xs text-warning-600 bg-warning-50 px-2 py-1 rounded">
+                  Brak danych
+                </span>
+              )}
+            </div>
+            <div className="text-xs mt-1 text-gray-600">
+              BAI 50%, US Navy 25%, Deurenberg 25% (tylko automatyczne metody)
+            </div>
+          </button>
         </div>
       </div>
 
@@ -290,6 +363,26 @@ export function BodyFatEstimator({ formData, value, onChange }: BodyFatEstimator
         </div>
       )}
 
+      {/* Weighted Average Instructions */}
+      {method === 'weighted-average' && !canCalculateWeightedAverage() && (
+        <div className="bg-blue-50 border border-blue-200 rounded-lg p-3">
+          <div className="flex gap-2">
+            <Info className="w-4 h-4 text-blue-600 flex-shrink-0 mt-0.5" />
+            <div className="text-sm text-blue-800">
+              <p className="font-medium mb-1">Średnia ważona wymaga minimum:</p>
+              <ul className="list-disc list-inside space-y-0.5 text-xs">
+                <li><strong>BAI (50% wagi):</strong> Obwód bioder, Wzrost</li>
+                <li><strong>Opcjonalnie US Navy (25%):</strong> Obwód szyi, talii{formData.gender === 'female' ? ', bioder' : ''}</li>
+                <li><strong>Opcjonalnie Deurenberg (25%):</strong> Waga, Wzrost, Wiek, Płeć</li>
+              </ul>
+              <p className="mt-2 text-xs">
+                Im więcej metod możliwych do obliczenia, tym dokładniejszy wynik. Ręczne wprowadzenie nie jest uwzględniane w średniej ważonej.
+              </p>
+            </div>
+          </div>
+        </div>
+      )}
+
       {/* Result Display */}
       {value !== undefined && (
         <div className="bg-gray-50 rounded-lg p-4 border border-gray-200">
@@ -315,6 +408,7 @@ export function BodyFatEstimator({ formData, value, onChange }: BodyFatEstimator
               method === 'manual' ? 'Ręczne wprowadzenie' :
               method === 'navy' ? 'US Navy' :
               method === 'bai' ? 'BAI (Body Adiposity Index)' :
+              method === 'weighted-average' ? 'Średnia ważona (BAI 50%, Navy 25%, Deurenberg 25%)' :
               'Deurenberg (BMI)'
             }
           </div>

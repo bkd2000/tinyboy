@@ -51,7 +51,7 @@ export interface DeurenbergParams {
   gender: Gender;
 }
 
-export type BodyFatMethod = 'manual' | 'navy' | 'deurenberg' | 'bai';
+export type BodyFatMethod = 'manual' | 'navy' | 'deurenberg' | 'bai' | 'weighted-average';
 
 export interface BMIData {
   value: number;
