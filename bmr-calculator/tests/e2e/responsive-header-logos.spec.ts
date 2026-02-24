@@ -25,8 +25,9 @@ test.describe('Responsive Header Logos', () => {
     expect(poradniaBox!.y).toBeGreaterThan(instytutBox!.y + instytutBox!.height);
 
     // Both logos should be roughly aligned on the right (x positions similar)
+    // Tolerance increased to 50px since Instytut logo is now 20% larger
     const horizontalDiff = Math.abs(instytutBox!.x - poradniaBox!.x);
-    expect(horizontalDiff).toBeLessThan(20);
+    expect(horizontalDiff).toBeLessThan(50);
 
     // Take screenshot
     await page.screenshot({ path: 'bmr-calculator/responsive-logos-desktop.png', fullPage: false });
@@ -96,32 +97,41 @@ test.describe('Responsive Header Logos', () => {
   });
 
   test('should have appropriate logo sizes on different screens', async ({ page }) => {
-    // Test mobile size (h-12 = 48px)
+    // Test mobile size - Instytut: h-14 (56px), Poradnia: h-12 (48px)
     await page.setViewportSize({ width: 390, height: 844 });
     await page.goto('http://localhost:5182');
     await page.waitForLoadState('networkidle');
 
     let instytutBox = await page.getByAltText('Instytut Dietcoachingu').boundingBox();
+    let poradniaBox = await page.getByAltText('Poradnia Odchudzania i Odżywiania').boundingBox();
     expect(instytutBox).not.toBeNull();
-    // Height should be h-12 (48px) on mobile
-    expect(instytutBox!.height).toBeCloseTo(48, 0);
+    expect(poradniaBox).not.toBeNull();
+    // Height should be h-14 (56px) for Instytut, h-12 (48px) for Poradnia on mobile
+    expect(instytutBox!.height).toBeCloseTo(56, 0);
+    expect(poradniaBox!.height).toBeCloseTo(48, 0);
 
-    // Test tablet size (md:h-14 = 56px)
+    // Test tablet size - Instytut: md:h-16 (64px), Poradnia: md:h-14 (56px)
     await page.setViewportSize({ width: 768, height: 1024 });
     await page.waitForTimeout(500); // Wait for resize
 
     instytutBox = await page.getByAltText('Instytut Dietcoachingu').boundingBox();
+    poradniaBox = await page.getByAltText('Poradnia Odchudzania i Odżywiania').boundingBox();
     expect(instytutBox).not.toBeNull();
-    // Height should be h-14 (56px) on tablet (md breakpoint)
-    expect(instytutBox!.height).toBeCloseTo(56, 0);
+    expect(poradniaBox).not.toBeNull();
+    // Height should be h-16 (64px) for Instytut, h-14 (56px) for Poradnia on tablet
+    expect(instytutBox!.height).toBeCloseTo(64, 0);
+    expect(poradniaBox!.height).toBeCloseTo(56, 0);
 
-    // Test desktop size (md:h-14 = 56px)
+    // Test desktop size - Instytut: md:h-16 (64px), Poradnia: md:h-14 (56px)
     await page.setViewportSize({ width: 1280, height: 720 });
     await page.waitForTimeout(500); // Wait for resize
 
     instytutBox = await page.getByAltText('Instytut Dietcoachingu').boundingBox();
+    poradniaBox = await page.getByAltText('Poradnia Odchudzania i Odżywiania').boundingBox();
     expect(instytutBox).not.toBeNull();
-    // Height should be h-14 (56px) on desktop
-    expect(instytutBox!.height).toBeCloseTo(56, 0);
+    expect(poradniaBox).not.toBeNull();
+    // Height should be h-16 (64px) for Instytut, h-14 (56px) for Poradnia on desktop
+    expect(instytutBox!.height).toBeCloseTo(64, 0);
+    expect(poradniaBox!.height).toBeCloseTo(56, 0);
   });
 });

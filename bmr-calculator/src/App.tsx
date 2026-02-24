@@ -129,7 +129,7 @@ function App() {
               <img
                 src="/logos/instytut-dietcoachingu.jpg"
                 alt="Instytut Dietcoachingu"
-                className="h-12 md:h-14 object-contain"
+                className="h-14 md:h-16 object-contain"
               />
               <img
                 src="/logos/poradnia.jpg"
