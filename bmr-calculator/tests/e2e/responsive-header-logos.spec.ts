@@ -1,7 +1,7 @@
 import { test, expect } from '@playwright/test';
 
 test.describe('Responsive Header Logos', () => {
-  test('should display logos stacked vertically on right on desktop', async ({ page }) => {
+  test('should display logos side by side on desktop', async ({ page }) => {
     // Set desktop viewport
     await page.setViewportSize({ width: 1280, height: 720 });
     await page.goto('http://localhost:5182');
@@ -14,20 +14,19 @@ test.describe('Responsive Header Logos', () => {
     await expect(instytutLogo).toBeVisible();
     await expect(poradniaLogo).toBeVisible();
 
-    // Get bounding boxes to verify vertical stacking
+    // Get bounding boxes to verify horizontal layout
     const instytutBox = await instytutLogo.boundingBox();
     const poradniaBox = await poradniaLogo.boundingBox();
 
     expect(instytutBox).not.toBeNull();
     expect(poradniaBox).not.toBeNull();
 
-    // Logos should be stacked vertically (Poradnia below Instytut)
-    expect(poradniaBox!.y).toBeGreaterThan(instytutBox!.y + instytutBox!.height);
+    // On desktop, logos should be side by side (Poradnia to the right of Instytut)
+    expect(poradniaBox!.x).toBeGreaterThan(instytutBox!.x + instytutBox!.width);
 
-    // Both logos should be roughly aligned on the right (x positions similar)
-    // Tolerance increased to 120px since Instytut logo is now 73% larger than original
-    const horizontalDiff = Math.abs(instytutBox!.x - poradniaBox!.x);
-    expect(horizontalDiff).toBeLessThan(120);
+    // Both logos should be roughly aligned vertically (y positions similar)
+    const verticalDiff = Math.abs((instytutBox!.y + instytutBox!.height / 2) - (poradniaBox!.y + poradniaBox!.height / 2));
+    expect(verticalDiff).toBeLessThan(30);
 
     // Take screenshot
     await page.screenshot({ path: 'bmr-calculator/responsive-logos-desktop.png', fullPage: false });
@@ -65,8 +64,8 @@ test.describe('Responsive Header Logos', () => {
     await page.screenshot({ path: 'bmr-calculator/responsive-logos-mobile.png', fullPage: false });
   });
 
-  test('should display logos stacked vertically on tablet portrait', async ({ page }) => {
-    // Set tablet portrait viewport (iPad Mini size)
+  test('should display logos side by side on tablet portrait', async ({ page }) => {
+    // Set tablet portrait viewport (iPad Mini size - md breakpoint is 768px)
     await page.setViewportSize({ width: 768, height: 1024 });
     await page.goto('http://localhost:5182');
     await page.waitForLoadState('networkidle');
@@ -85,12 +84,12 @@ test.describe('Responsive Header Logos', () => {
     expect(instytutBox).not.toBeNull();
     expect(poradniaBox).not.toBeNull();
 
-    // Logos should be stacked vertically (Poradnia below Instytut)
-    expect(poradniaBox!.y).toBeGreaterThan(instytutBox!.y + instytutBox!.height);
+    // On tablet (md breakpoint), logos should be side by side (Poradnia to the right of Instytut)
+    expect(poradniaBox!.x).toBeGreaterThan(instytutBox!.x + instytutBox!.width);
 
-    // Both logos should be within viewport
-    expect(instytutBox!.x + instytutBox!.width).toBeLessThanOrEqual(768);
-    expect(poradniaBox!.x + poradniaBox!.width).toBeLessThanOrEqual(768);
+    // Both logos should be roughly aligned vertically
+    const verticalDiff = Math.abs((instytutBox!.y + instytutBox!.height / 2) - (poradniaBox!.y + poradniaBox!.height / 2));
+    expect(verticalDiff).toBeLessThan(30);
 
     // Take screenshot
     await page.screenshot({ path: 'bmr-calculator/responsive-logos-tablet.png', fullPage: false });

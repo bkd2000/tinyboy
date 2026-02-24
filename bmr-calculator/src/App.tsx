@@ -125,7 +125,7 @@ function App() {
                 Wszystko czego potrzebujesz do profesjonalnej oceny składu ciała
               </p>
             </div>
-            <div className="flex flex-col items-end gap-3">
+            <div className="flex flex-col md:flex-row items-end gap-3 md:gap-6">
               <img
                 src="/logos/instytut-dietcoachingu.jpg"
                 alt="Instytut Dietcoachingu"
