@@ -116,7 +116,7 @@ function App() {
       {/* Header */}
       <header className="bg-white shadow-sm border-b border-gray-200">
         <div className="max-w-7xl mx-auto px-4 py-6">
-          <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
+          <div className="flex items-start justify-between gap-4">
             <div>
               <h1 className="text-3xl font-bold text-primary">
                 BodyMetrics Pro
@@ -125,16 +125,16 @@ function App() {
                 Wszystko czego potrzebujesz do profesjonalnej oceny składu ciała
               </p>
             </div>
-            <div className="flex flex-col sm:flex-row items-start sm:items-center gap-4 sm:gap-6">
+            <div className="flex flex-col items-end gap-3">
               <img
                 src="/logos/instytut-dietcoachingu.jpg"
                 alt="Instytut Dietcoachingu"
-                className="h-12 sm:h-14 md:h-16 object-contain"
+                className="h-12 md:h-14 object-contain"
               />
               <img
                 src="/logos/poradnia.jpg"
                 alt="Poradnia Odchudzania i Odżywiania"
-                className="h-12 sm:h-14 md:h-16 object-contain"
+                className="h-12 md:h-14 object-contain"
               />
             </div>
           </div>
