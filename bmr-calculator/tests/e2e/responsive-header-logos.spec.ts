@@ -105,11 +105,11 @@ test.describe('Responsive Header Logos', () => {
     let poradniaBox = await page.getByAltText('Poradnia Odchudzania i Odżywiania').boundingBox();
     expect(instytutBox).not.toBeNull();
     expect(poradniaBox).not.toBeNull();
-    // Height should be h-20 (80px) for Instytut, h-12 (48px) for Poradnia on mobile
+    // Height should be h-20 (80px) for Instytut on mobile, h-12 (48px) for Poradnia
     expect(instytutBox!.height).toBeCloseTo(80, 0);
     expect(poradniaBox!.height).toBeCloseTo(48, 0);
 
-    // Test tablet size - Instytut: md:h-24 (96px), Poradnia: md:h-14 (56px)
+    // Test tablet size - Instytut: md:h-16 (64px), Poradnia: md:h-14 (56px)
     await page.setViewportSize({ width: 768, height: 1024 });
     await page.waitForTimeout(500); // Wait for resize
 
@@ -117,11 +117,11 @@ test.describe('Responsive Header Logos', () => {
     poradniaBox = await page.getByAltText('Poradnia Odchudzania i Odżywiania').boundingBox();
     expect(instytutBox).not.toBeNull();
     expect(poradniaBox).not.toBeNull();
-    // Height should be h-24 (96px) for Instytut, h-14 (56px) for Poradnia on tablet
-    expect(instytutBox!.height).toBeCloseTo(96, 0);
+    // Height should be h-16 (64px) for Instytut on desktop, h-14 (56px) for Poradnia
+    expect(instytutBox!.height).toBeCloseTo(64, 0);
     expect(poradniaBox!.height).toBeCloseTo(56, 0);
 
-    // Test desktop size - Instytut: md:h-24 (96px), Poradnia: md:h-14 (56px)
+    // Test desktop size - Instytut: md:h-16 (64px), Poradnia: md:h-14 (56px)
     await page.setViewportSize({ width: 1280, height: 720 });
     await page.waitForTimeout(500); // Wait for resize
 
@@ -129,8 +129,8 @@ test.describe('Responsive Header Logos', () => {
     poradniaBox = await page.getByAltText('Poradnia Odchudzania i Odżywiania').boundingBox();
     expect(instytutBox).not.toBeNull();
     expect(poradniaBox).not.toBeNull();
-    // Height should be h-24 (96px) for Instytut, h-14 (56px) for Poradnia on desktop
-    expect(instytutBox!.height).toBeCloseTo(96, 0);
+    // Height should be h-16 (64px) for Instytut on desktop, h-14 (56px) for Poradnia
+    expect(instytutBox!.height).toBeCloseTo(64, 0);
     expect(poradniaBox!.height).toBeCloseTo(56, 0);
   });
 });
