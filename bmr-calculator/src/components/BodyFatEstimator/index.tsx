@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import type { FormData, BodyFatMethod } from '../../types';
-import { estimateBodyFatUSNavy, estimateBodyFatDeurenberg, getBodyFatCategory } from '../../utils/bodyFat';
+import { estimateBodyFatUSNavy, estimateBodyFatDeurenberg, getBodyFatCategory, getBodyFatCategoryByAge } from '../../utils/bodyFat';
 import { calculateBMI } from '../../utils/bmi';
 import { calculateBAI, getBAICategory, getBAICategoryLabel, getBAICategoryDescription, getBAICategoryColor } from '../../utils/bai';
 import { Activity, Info } from 'lucide-react';
@@ -156,14 +156,169 @@ export function BodyFatEstimator({ formData, value, onChange }: BodyFatEstimator
     return canCalculateBAI();
   };
 
+  const renderBodyFatNormBar = (bodyFat: number, age: number, gender: 'male' | 'female') => {
+    // Get age-specific norms
+    let underweight: number, normalMin: number, normalMax: number, overweight1: number, overweight2: number;
+
+    if (gender === 'female') {
+      if (age >= 19 && age <= 24) {
+        [underweight, normalMin, normalMax, overweight1, overweight2] = [18.9, 18.9, 22.1, 25.0, 29.6];
+      } else if (age >= 25 && age <= 29) {
+        [underweight, normalMin, normalMax, overweight1, overweight2] = [18.9, 18.9, 22.0, 25.4, 29.8];
+      } else if (age >= 30 && age <= 34) {
+        [underweight, normalMin, normalMax, overweight1, overweight2] = [19.7, 19.7, 22.7, 26.4, 30.5];
+      } else if (age >= 35 && age <= 39) {
+        [underweight, normalMin, normalMax, overweight1, overweight2] = [21.0, 21.0, 24.0, 27.7, 31.5];
+      } else if (age >= 40 && age <= 44) {
+        [underweight, normalMin, normalMax, overweight1, overweight2] = [22.6, 22.6, 25.6, 29.3, 32.8];
+      } else if (age >= 45 && age <= 49) {
+        [underweight, normalMin, normalMax, overweight1, overweight2] = [24.3, 24.3, 27.3, 30.9, 34.1];
+      } else if (age >= 50 && age <= 54) {
+        [underweight, normalMin, normalMax, overweight1, overweight2] = [26.6, 26.6, 29.7, 33.1, 36.2];
+      } else if (age >= 55 && age <= 59) {
+        [underweight, normalMin, normalMax, overweight1, overweight2] = [27.4, 27.4, 30.7, 34.0, 37.3];
+      } else {
+        [underweight, normalMin, normalMax, overweight1, overweight2] = [27.6, 27.6, 31.0, 34.4, 38.0];
+      }
+    } else {
+      if (age >= 19 && age <= 24) {
+        [underweight, normalMin, normalMax, overweight1, overweight2] = [10.8, 10.8, 14.9, 19.0, 23.3];
+      } else if (age >= 25 && age <= 29) {
+        [underweight, normalMin, normalMax, overweight1, overweight2] = [12.8, 12.8, 16.5, 20.3, 24.4];
+      } else if (age >= 30 && age <= 34) {
+        [underweight, normalMin, normalMax, overweight1, overweight2] = [14.5, 14.5, 18.0, 21.5, 25.2];
+      } else if (age >= 35 && age <= 39) {
+        [underweight, normalMin, normalMax, overweight1, overweight2] = [16.1, 16.1, 19.4, 22.6, 26.1];
+      } else if (age >= 40 && age <= 44) {
+        [underweight, normalMin, normalMax, overweight1, overweight2] = [17.5, 17.5, 20.5, 23.6, 26.9];
+      } else if (age >= 45 && age <= 49) {
+        [underweight, normalMin, normalMax, overweight1, overweight2] = [18.6, 18.6, 21.5, 24.5, 27.6];
+      } else if (age >= 50 && age <= 54) {
+        [underweight, normalMin, normalMax, overweight1, overweight2] = [19.8, 19.8, 22.7, 25.6, 28.7];
+      } else if (age >= 55 && age <= 59) {
+        [underweight, normalMin, normalMax, overweight1, overweight2] = [20.2, 20.2, 23.2, 26.2, 29.3];
+      } else {
+        [underweight, normalMin, normalMax, overweight1, overweight2] = [20.3, 20.3, 23.5, 26.7, 29.8];
+      }
+    }
+
+    // Calculate scale (max value for visualization)
+    const maxScale = overweight2 + 10;
+
+    // Calculate percentages for each zone
+    const underwightWidth = (underweight / maxScale) * 100;
+    const normalWidth = ((normalMax - normalMin) / maxScale) * 100;
+    const overweight1Width = ((overweight1 - normalMax) / maxScale) * 100;
+    const overweight2Width = ((overweight2 - overweight1) / maxScale) * 100;
+    const obesityWidth = ((maxScale - overweight2) / maxScale) * 100;
+
+    // Calculate position of the marker
+    const markerPosition = Math.min((bodyFat / maxScale) * 100, 100);
+
+    return (
+      <div className="space-y-1">
+        {/* Colored bar with zones */}
+        <div className="relative h-8 flex rounded overflow-hidden border border-gray-300">
+          {/* Underweight zone */}
+          <div
+            className="bg-warning-200 flex items-center justify-center text-[10px] font-medium text-gray-700"
+            style={{ width: `${underwightWidth}%` }}
+            title={`Niedowaga: <${underweight.toFixed(1)}%`}
+          >
+            {underwightWidth > 8 && <span className="px-1">Niedowaga</span>}
+          </div>
+
+          {/* Normal zone */}
+          <div
+            className="bg-success-400 flex items-center justify-center text-[10px] font-medium text-white"
+            style={{ width: `${normalWidth}%` }}
+            title={`Norma: ${normalMin.toFixed(1)}–${normalMax.toFixed(1)}%`}
+          >
+            {normalWidth > 8 && <span className="px-1">Norma</span>}
+          </div>
+
+          {/* Overweight I zone */}
+          <div
+            className="bg-warning-300 flex items-center justify-center text-[10px] font-medium text-gray-700"
+            style={{ width: `${overweight1Width}%` }}
+            title={`I stopień: ${normalMax.toFixed(1)}–${overweight1.toFixed(1)}%`}
+          >
+            {overweight1Width > 8 && <span className="px-1">I st.</span>}
+          </div>
+
+          {/* Overweight II zone */}
+          <div
+            className="bg-danger-300 flex items-center justify-center text-[10px] font-medium text-white"
+            style={{ width: `${overweight2Width}%` }}
+            title={`Nadwaga: ${overweight1.toFixed(1)}–${overweight2.toFixed(1)}%`}
+          >
+            {overweight2Width > 8 && <span className="px-1">Nadwaga</span>}
+          </div>
+
+          {/* Obesity zone */}
+          <div
+            className="bg-danger-600 flex items-center justify-center text-[10px] font-medium text-white"
+            style={{ width: `${obesityWidth}%` }}
+            title={`Otyłość: >${overweight2.toFixed(1)}%`}
+          >
+            {obesityWidth > 8 && <span className="px-1">Otyłość</span>}
+          </div>
+        </div>
+
+        {/* Marker showing current value */}
+        <div className="relative h-6">
+          <div
+            className="absolute top-0 transform -translate-x-1/2"
+            style={{ left: `${markerPosition}%` }}
+          >
+            <div className="flex flex-col items-center">
+              <div className="w-0 h-0 border-l-4 border-r-4 border-b-4 border-l-transparent border-r-transparent border-b-primary"></div>
+              <div className="text-[10px] font-bold text-primary whitespace-nowrap">
+                {bodyFat.toFixed(1)}%
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* Legend with numerical ranges */}
+        <div className="grid grid-cols-5 gap-1 text-[9px] text-gray-600 mt-1">
+          <div className="text-center">
+            <div className="font-medium">Niedowaga</div>
+            <div>&lt;{underweight.toFixed(1)}%</div>
+          </div>
+          <div className="text-center">
+            <div className="font-medium">Norma</div>
+            <div>{normalMin.toFixed(1)}–{normalMax.toFixed(1)}%</div>
+          </div>
+          <div className="text-center">
+            <div className="font-medium">I stopień</div>
+            <div>{normalMax.toFixed(1)}–{overweight1.toFixed(1)}%</div>
+          </div>
+          <div className="text-center">
+            <div className="font-medium">Nadwaga</div>
+            <div>{overweight1.toFixed(1)}–{overweight2.toFixed(1)}%</div>
+          </div>
+          <div className="text-center">
+            <div className="font-medium">Otyłość</div>
+            <div>&gt;{overweight2.toFixed(1)}%</div>
+          </div>
+        </div>
+      </div>
+    );
+  };
+
+  // Use age-based norms if age is available, otherwise use simple categorization (or BAI for BAI method)
   const bodyFatCategory = value && formData.gender
-    ? (method === 'bai'
-        ? {
-            category: getBAICategoryLabel(getBAICategory(value, formData.gender)),
-            description: getBAICategoryDescription(getBAICategory(value, formData.gender), formData.gender),
-            color: getBAICategoryColor(getBAICategory(value, formData.gender))
-          }
-        : getBodyFatCategory(value, formData.gender))
+    ? (formData.age
+        ? getBodyFatCategoryByAge(value, formData.age, formData.gender)
+        : method === 'bai'
+          ? {
+              category: getBAICategoryLabel(getBAICategory(value, formData.gender)),
+              description: getBAICategoryDescription(getBAICategory(value, formData.gender), formData.gender),
+              color: getBAICategoryColor(getBAICategory(value, formData.gender)),
+              range: undefined
+            }
+          : { ...getBodyFatCategory(value, formData.gender), range: undefined })
     : null;
 
   return (
@@ -392,15 +547,30 @@ export function BodyFatEstimator({ formData, value, onChange }: BodyFatEstimator
           </div>
 
           {bodyFatCategory && (
-            <div className={`
-              mt-2 px-3 py-2 rounded-lg text-sm
-              ${bodyFatCategory.color === 'success' ? 'bg-success-50 text-success-700' : ''}
-              ${bodyFatCategory.color === 'warning' ? 'bg-warning-50 text-warning-700' : ''}
-              ${bodyFatCategory.color === 'danger' ? 'bg-danger-50 text-danger-700' : ''}
-            `}>
-              <div className="font-medium">{bodyFatCategory.category}</div>
-              <div className="text-xs mt-0.5">{bodyFatCategory.description}</div>
-            </div>
+            <>
+              <div className={`
+                mt-2 px-3 py-2 rounded-lg text-sm
+                ${bodyFatCategory.color === 'success' ? 'bg-success-50 text-success-700' : ''}
+                ${bodyFatCategory.color === 'warning' ? 'bg-warning-50 text-warning-700' : ''}
+                ${bodyFatCategory.color === 'danger' ? 'bg-danger-50 text-danger-700' : ''}
+              `}>
+                <div className="font-medium">{bodyFatCategory.category}</div>
+                <div className="text-xs mt-0.5">{bodyFatCategory.description}</div>
+                {bodyFatCategory.range && (
+                  <div className="text-xs mt-1 font-medium">Zakres: {bodyFatCategory.range}</div>
+                )}
+              </div>
+
+              {/* Graphical age-based norm visualization */}
+              {formData.age && formData.gender && bodyFatCategory.range && (
+                <div className="mt-3 space-y-2">
+                  <div className="text-xs font-medium text-gray-700">
+                    Normy dla {formData.gender === 'male' ? 'mężczyzn' : 'kobiet'} w wieku {formData.age} lat:
+                  </div>
+                  {renderBodyFatNormBar(value, formData.age, formData.gender)}
+                </div>
+              )}
+            </>
           )}
 
           <div className="mt-2 text-xs text-gray-500">
